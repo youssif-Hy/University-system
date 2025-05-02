@@ -200,7 +200,7 @@ namespace Project_Y.H.B_University.System
                     Console.Write("Please select an option: ");
                     int option1 = 0;
                     while (option1 != 1 && option1 != 2)
-                        option = validateInput(Console.ReadLine());
+                        option1 = validateInput(Console.ReadLine());
                     bool isValid;
                     if (option1 == 1)
                     {
