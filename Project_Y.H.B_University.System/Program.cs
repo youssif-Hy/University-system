@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,7 +57,7 @@ namespace Project_Y.H.B_University.System
             string[] adminpassword = new string[3];
             adminusername[0] = "youssef_Hy1";
             adminusername[1] = "thomas_EN";
-            adminpassword[0] = "Yussef@123";
+            adminpassword[0] = "Youssef@123";
             adminpassword[1] = "Thomas@123";
             Data[] student = new Data [0];
             Console.Clear();
@@ -65,7 +65,7 @@ namespace Project_Y.H.B_University.System
             {
                 case 1:
                     //login
-                    if (student != null)
+                    if (student.Length != 0)
                     {
                         check = false;
                         level = 0;
@@ -88,7 +88,7 @@ namespace Project_Y.H.B_University.System
                             else
                             {
                                 Console.Clear();
-                                Console.WriteLine("Invalid email or password");
+                                Console.WriteLine("Invalid ID or password");
                                 Console.WriteLine("You have " + (2 - i) + " attempts left");
                             }
                         }
@@ -217,7 +217,7 @@ namespace Project_Y.H.B_University.System
                                 option2 = validateInput(Console.ReadLine());
                             if (option2 == 1)
                             {
-                                if (student != null) 
+                                if (student.Length != 0) 
                                 {
                                     ShowData(student);
                                 }
@@ -394,6 +394,10 @@ namespace Project_Y.H.B_University.System
                         break;
                     }
                 }
+                if (isValid)
+                {
+                    break;
+                }   
 
             }
             if (VACCESSP == 0)
