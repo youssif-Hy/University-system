@@ -50,8 +50,19 @@ namespace Project_Y.H.B_University.System
             Console.Write("Please select an option: ");
             int VBTOM,numStudents=0,semester=0,level=0;
             int option=0;
-            while (option != 1 && option != 2 && option != 3 && option != 4 && option != 5)
+            while (true)
+            {
                 option = validateInput(Console.ReadLine());
+                if (option>5||option<0)
+                {
+                    Console.Write("Invalid option. Please enter a valid number: ");
+                }
+                else if (option==1||option==2||option==3||option==4||option==5)
+                {
+                    break;
+                }
+                
+            }
             bool check = false;
             string[] adminusername = new string[3];
             string[] adminpassword = new string[3];
@@ -371,10 +382,7 @@ namespace Project_Y.H.B_University.System
                     Console.Clear();
                     Exit_Message();
                     break;
-
             }
-
-            
         }
         public static int Switch1()
         {
@@ -406,13 +414,11 @@ namespace Project_Y.H.B_University.System
                 Console.Write("Please select an option: ");
                 option = validateInput(Console.ReadLine());
                 Console.WriteLine("**********************************************************");
-
             }
             else 
             {
                 Exit_Message();
             }
-           
             return option;
         }
         static void Exit_Message()
@@ -427,12 +433,9 @@ namespace Project_Y.H.B_University.System
             Console.ReadKey();
             Console.ForegroundColor = ConsoleColor.White;
             Environment.Exit(0);
-
-
         }
         static bool Access_Permission(string [] adminusername, string[] adminpassword)
         {
-           
             int VACCESSP = 3;
             bool isValid = false;
             string adminusername1;
@@ -511,12 +514,10 @@ namespace Project_Y.H.B_University.System
             if (semester == 1)
             {
                path = @"C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\materiats Unviersity\level 1\semester 1";
-               
             }
             else
             {
                 path = @"C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\materiats Unviersity\level 1\semester 2";
-                
             }
             using (var level1 = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
             {
@@ -533,12 +534,10 @@ namespace Project_Y.H.B_University.System
             if (semester == 1)
             {
                 path = @"C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\materiats Unviersity\level 2\semester 1";
-                
             }
             else
             {
                 path = @"C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\materiats Unviersity\level 2\semester 2";
-               
             }
             using (var level2 = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
             {
@@ -555,13 +554,10 @@ namespace Project_Y.H.B_University.System
             if (semester == 1)
             {
                  path = @"C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\materiats Unviersity\level 3\semester 1";
-               
-                
             }
             else
             {
                 path = @"C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\materiats Unviersity\level 3\semester 2";
-               
             }
             using (var level3 = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Read))
             {
@@ -577,10 +573,11 @@ namespace Project_Y.H.B_University.System
             int value;
             while (!int.TryParse(input, out value))
             {
+
                 Console.WriteLine("**********************************************************");
-                Console.Write("Invalid input. Please enter a number: ");
+                Console.Write("Invalid input. Please enter a valid number: ");
                 input = Console.ReadLine();
-                Console.WriteLine("**********************************************************\n");
+                Console.WriteLine("**********************************************************");
             }
             return value;
         }
