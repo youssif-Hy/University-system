@@ -65,12 +65,15 @@ namespace Project_Y.H.B_University.System
             }
             bool check = false;
             string[] adminusername = new string[3];
+            string[] adminusername2 = new string[0];
             string[] adminpassword = new string[3];
+            string[] adminpassword2 = new string[0];
             adminusername[0] = "youssef_Hy1";
             adminusername[1] = "thomas_EN";
             adminpassword[0] = "Youssef@123";
             adminpassword[1] = "Thomas@123";
-            Data[] student = new Data [0];
+            Data[] student = new Data[0];
+            Data[] student2 = new Data[0];
             Console.Clear();
             switch (option)
             {
@@ -109,8 +112,14 @@ namespace Project_Y.H.B_University.System
                             Console.WriteLine("2.level 2");
                             Console.WriteLine("3.level 3");
                             Console.Write("Enter the level number for which you want materiats:");
-                            while (level!=1&&level!=2&&level!=3)
+                            while (level != 1 && level != 2 && level != 3)
+                            {
                                 level = validateInput(Console.ReadLine());
+                                if (level != 1 && level != 2 && level != 3)
+                                {
+                                    Console.WriteLine("Invalid option. Please try again.");
+                                }
+                            }
                             Console.Clear();
                             if (level == 1)
                             {
@@ -118,8 +127,14 @@ namespace Project_Y.H.B_University.System
                                 Console.WriteLine("1.First Semester");
                                 Console.WriteLine("2.Second Semester");
                                 Console.Write("Enter the semester number for which you want materiats:");
-                                while (semester!=1&&semester!=2&&semester!=3)
-                                semester = validateInput(Console.ReadLine());
+                                while (semester != 1 && semester != 2 && semester != 3)
+                                {
+                                    semester = validateInput(Console.ReadLine());
+                                    if (semester != 1 && semester != 2 && semester != 3)
+                                    {
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    }
+                                }
                                 showmateriatsLevel1(semester);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
@@ -134,7 +149,13 @@ namespace Project_Y.H.B_University.System
                                 Console.WriteLine("2.Second Semester");
                                 Console.Write("Enter the semester number for which you want materiats:");
                                 while (semester != 1 && semester != 2 && semester != 3)
+                                {
                                     semester = validateInput(Console.ReadLine());
+                                    if (semester != 1 && semester != 2 && semester != 3)
+                                    {
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    }
+                                }
                                 showmateriatsLevel2(semester);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
@@ -147,7 +168,13 @@ namespace Project_Y.H.B_University.System
                                 Console.WriteLine("2.Second Semester");
                                 Console.Write("Enter the semester number for which you want materiats:");
                                 while (semester != 1 && semester != 2 && semester != 3)
+                                {
                                     semester = validateInput(Console.ReadLine());
+                                    if (semester != 1 && semester != 2 && semester != 3)
+                                    {
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    }
+                                }
                                 showmateriatsLevel3(semester);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
@@ -174,7 +201,7 @@ namespace Project_Y.H.B_University.System
                     break;
                 case 2:
                     //register
-                    if (student.Length == 0 && (numStudents == 0))
+                    if (student.Length == 0 )
                     {
                         student = new Data[1];
                         Console.Write("Enter student name: ");
@@ -187,19 +214,28 @@ namespace Project_Y.H.B_University.System
                         student[0].Password = validatePassword(Console.ReadLine());
                         Console.WriteLine("Student registered successfully.");
                     }
-                    else
+                    else if (student.Length != 0)
                     {
-                        student = new Data[numStudents + 1];
-                        Console.Write("Enter student name: ");
-                        student[numStudents].Name = validateName(Console.ReadLine());
-                        Console.Write("Enter student ID: ");
-                        student[numStudents].ID = Console.ReadLine();
-                        Console.Write("Enter student email: ");
-                        student[numStudents].Email = validateEmail(Console.ReadLine());
-                        Console.Write("Enter student password: ");
-                        student[numStudents].Password = validatePassword(Console.ReadLine());
-                        Console.WriteLine("Student registered successfully.");
+                        student2 = new Data[student.Length];
+                        Array.Copy(student, student2, student.Length);
+                        student = new Data[student.Length + 1];
+                        Array.Copy(student2, student, student2.Length);
+                        student2 = null;
+                        for (int i = student.Length-1; i < student.Length; i++)
+                        {
+                            Console.WriteLine("Enter data for student " + (i + 1));
+                            Console.Write("Enter student name: ");
+                            student[i].Name = validateName(Console.ReadLine());
+                            Console.Write("Enter student ID: ");
+                            student[i].ID = Console.ReadLine();
+                            Console.Write("Enter student email: ");
+                            student[i].Email = validateEmail(Console.ReadLine());
+                            Console.Write("Enter student password: ");
+                            student[i].Password = validatePassword(Console.ReadLine());
+                            Console.WriteLine("Student registered successfully.");
+                        }
                     }
+                    
                     VBTOM = Switch1();
                     if (VBTOM == 1) goto case 1;
                     else if (VBTOM == 2) goto case 2;
@@ -216,7 +252,13 @@ namespace Project_Y.H.B_University.System
                     Console.Write("Please select an option: ");
                     int option1 = 0;
                     while (option1 != 1 && option1 != 2)
+                    {
                         option1 = validateInput(Console.ReadLine());
+                        if (option1 != 1 && option1 != 2)
+                        {
+                            Console.WriteLine("Invalid option. Please try again.");
+                        }
+                    }
                     bool isValid;
                     if (option1 == 1)
                     {
@@ -261,81 +303,43 @@ namespace Project_Y.H.B_University.System
                                 }
                             }
                             else if (option2 == 2)
-                            {  
+                            {
                                 Console.WriteLine("**********************************************************");
-                                Console.WriteLine("Add some Student Data");
-                                Console.Write("Enter the number of students: ");
-                                if (student.Length == 0)
+                                Console.Write("Enter the number of additional students: ");
+                                numStudents = validateInput(Console.ReadLine());
+                                student2 = new Data[student.Length];
+                                Array.Copy(student, student2, student.Length);
+                                student = new Data[student.Length + numStudents];
+                                Array.Copy(student2, student, student2.Length);
+                                student2 = null;
+                                for (int i = student.Length-numStudents; i < student.Length; i++)
                                 {
-                                    numStudents = validateInput(Console.ReadLine());
-                                    student = new Data[numStudents];
-                                    for (int i = 0; i < numStudents; i++)
-                                    {
-                                        Console.WriteLine("Enter data for student " + (i + 1));
-                                        Console.Write("Enter student name: ");
-                                        student[i].Name = validateName(Console.ReadLine());
-                                        Console.Write("Enter student ID: ");
-                                        student[i].ID = Console.ReadLine();
-                                        Console.Write("Enter student email: ");
-                                        student[i].Email = validateEmail(Console.ReadLine());
-                                        Console.Write("Enter student password: ");
-                                        student[i].Password = validatePassword(Console.ReadLine());
-                                        Console.WriteLine("**********************************************************");
-
-                                    }
-                                }
-                                else if(student.Length != 0)
-                                {
+                                    Console.WriteLine("Enter data for student " + (i + 1));
+                                    Console.Write("Enter student name: ");
+                                    student[i].Name = validateName(Console.ReadLine());
+                                    Console.Write("Enter student ID: ");
+                                    student[i].ID = Console.ReadLine();
+                                    Console.Write("Enter student email: ");
+                                    student[i].Email = validateEmail(Console.ReadLine());
+                                    Console.Write("Enter student password: ");
+                                    student[i].Password = validatePassword(Console.ReadLine());
                                     Console.WriteLine("**********************************************************");
-                                    Console.WriteLine("You can add more students to the existing data.");
-                                    Console.Write("Enter the number of additional students: ");
-                                    numStudents = validateInput(Console.ReadLine());
-                                    student = new Data[student.Length + numStudents];
-                                    for (int i = 0; i < student.Length; i++)
-                                    {
-                                        if (i < student.Length - numStudents)
-                                        {
-                                            student[i] = student[i];
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Enter data for student " + (i + 1));
-                                            Console.Write("Enter student name: ");
-                                            student[i].Name = validateName(Console.ReadLine());
-                                            Console.Write("Enter student ID: ");
-                                            student[i].ID = Console.ReadLine();
-                                            Console.Write("Enter student email: ");
-                                            student[i].Email = validateEmail(Console.ReadLine());
-                                            Console.Write("Enter student password: ");
-                                            student[i].Password = validatePassword(Console.ReadLine());
-                                            Console.WriteLine("**********************************************************");
-                                        }
-                                    }
                                 }
-                                else
-                                {
-                                    
-                                    numStudents = validateInput(Console.ReadLine());
-                                    student = new Data[1+numStudents];
-                                    for (int i = 1; i < numStudents; i++)
-                                    {
-                                        Console.WriteLine("Enter data for student " + (i + 1));
-                                        Console.Write("Enter student name: ");
-                                        student[i].Name = validateName(Console.ReadLine());
-                                        Console.Write("Enter student ID: ");
-                                        student[i].ID = Console.ReadLine();
-                                        Console.Write("Enter student email: ");
-                                        student[i].Email = validateEmail(Console.ReadLine());
-                                        Console.Write("Enter student password: ");
-                                        student[i].Password = validatePassword(Console.ReadLine());
-                                        Console.WriteLine("**********************************************************");
-
-                                    }
-                                }                            }
+                            }
                         }
                     }
                     else if (option1 == 2)
                     {
+                        adminusername2 =new string[adminusername.Length+1];
+                        Array.Copy(adminusername, adminusername2, adminusername.Length);
+                        adminusername = new string[adminusername.Length + 1];
+                        Array.Copy(adminusername2, adminusername, adminusername2.Length);
+                        adminusername2 = null; 
+                        adminpassword2 = new string[adminpassword.Length + 1];
+                        Array.Copy(adminpassword, adminpassword2, adminpassword.Length);
+                        adminpassword = new string[adminpassword.Length + 1];
+                        Array.Copy(adminpassword2, adminpassword, adminpassword.Length);
+                        adminpassword2 = null;
                         RegisterForAdmin(adminusername, adminpassword);
                         Console.Clear();
                         Console.WriteLine("New admin registered successfully.");
@@ -412,7 +416,19 @@ namespace Project_Y.H.B_University.System
                 Console.WriteLine("4. About");
                 Console.WriteLine("5. Exit\n");
                 Console.Write("Please select an option: ");
-                option = validateInput(Console.ReadLine());
+                while (true)
+                {
+                    option = validateInput(Console.ReadLine());
+                    if (option > 5 || option < 0)
+                    {
+                        Console.Write("Invalid option. Please enter a valid number: ");
+                    }
+                    else if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
+                    {
+                        break;
+                    }
+
+                }
                 Console.WriteLine("**********************************************************");
             }
             else 
@@ -493,11 +509,12 @@ namespace Project_Y.H.B_University.System
             bool x= Access_Permission(adminusername, adminpassword);
             if (x)
             {
+                
                 Console.WriteLine("**********************************************************");
                 Console.Write("Enter the new admin username: ");
-                adminusername[2] = Console.ReadLine();
+                adminusername[adminusername.Length-1] = Console.ReadLine();
                 Console.Write("Enter the new admin password: ");
-                adminpassword[2]= Console.ReadLine();
+                adminpassword[adminpassword.Length-1]= Console.ReadLine();
                 Console.WriteLine("New admin registered successfully.");
                 Console.WriteLine("**********************************************************\n");
             }
