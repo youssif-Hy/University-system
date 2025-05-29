@@ -68,7 +68,7 @@ This project was developed as a final submission for a professional training ini
 
 ---
 
-## 💡 Example Screenshots
+## 💡 Example
 
 Console Welcome Banner:
  __   __        __   __        _______
