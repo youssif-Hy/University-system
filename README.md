@@ -1,109 +1,138 @@
+
 # 🎓 Y.H.B University System
 
-**Version:** 0.1  
+**Version:** 0.2  
 **Developer:** Youssef Harby Bayoumi  
 **Training Program:** Final Project – Enactus Community  
 **Start Date:** April 21, 2025  
-**Submission Date:** May 1, 2025  
+**Last Update:** June 7, 2025  
 
 ---
 
 ## 📘 About the Project
 
-Y.H.B University System is a simple console-based educational management system developed in **C#**. It is designed to facilitate the interaction between **students** and **administrators**, enabling both parties to manage and access academic data and learning resources.
+Y.H.B University System is a comprehensive console-based university management tool developed in **C#**, aiming to streamline interactions between **students** and **administrators**. It allows for secure user authentication, structured access to academic content, and admin-level control over data.
 
-This project was developed as a final submission for a professional training initiative in collaboration with **Enactus**.
+This project is the outcome of a professional training initiative in collaboration with **Enactus**.
 
 ---
 
 ## 🧩 Features
 
-- 🔐 **Student Authentication**
-  - Login and Registration with ID, Email, and Password validation
+### 🔐 User Authentication
+- Secure **login/registration** for students
+- Multi-level **admin access** with authentication
+- Password strength enforced (min 8 characters)
 
-- 👨‍🏫 **Admin Control Panel**
-  - Login & Register as an admin
-  - Add and View student data
+### 🎓 Student Capabilities
+- Access to academic materials by:
+  - 📘 Level 1 (Semesters 1 & 2)  
+  - 📗 Level 2 (Semesters 1 & 2)  
+  - 📕 Level 3 (Semesters 1 & 2)
+- Personalized dashboard with name-based welcome message
+- Login attempt limit (3 tries before lockout)
 
-- 📚 **Academic Materials Access**
-  - Organized by academic **Level (1–3)** and **Semester (1 or 2)**
-  - Each student can browse specific resources after login
+### 🧑‍💼 Admin Features
+- 👥 **Student Data Management**
+  - View all student records
+  - Add multiple students
+  - Edit existing student data (name, ID, email, password)
+- 🛡️ **Admin Management**
+  - Add new admins (requires existing admin privilege)
+  - Secure admin authentication
 
-- 🧾 **About Section**
-  - Details about the project, its purpose, and future enhancements
-
-- 🚪 **Exit & Restart Prompts**
-  - User-friendly navigation and option to repeat or exit
+### 🧠 System Enhancements
+- ✉️ **Enhanced Input Validation**
+  - Email domains supported: `@gmail.com`, `@outlook.com`, etc.
+  - Name length & character checks
+  - Safe numeric input validation
+- 📂 **File Integration**
+  - Reads academic content from external files
+- 🖥️ **Improved Console UI**
+  - Color-coded sections
+  - Error messages with context
+  - Streamlined menu design
 
 ---
 
 ## 🛠 Technologies Used
 
 - **Language:** C# (.NET Console Application)
-- **IDE:** Visual Studio / Visual Studio Code
-- **Runtime:** .NET Framework / .NET Core
-- **Data Storage:** In-memory (arrays) – no database/file storage implemented yet
+- **IDE:** Visual Studio 2022
+- **Framework:** .NET Framework / .NET Core
+- **Storage:** File-based for materials (no database yet)
 
 ---
 
-## 🚧 Limitations & Future Improvements
+## 🧾 Data Management
 
-> This version is still under development (v0.1).  
-> Currently, the application does not store data in external files or a database. All student and admin data are stored in memory during runtime only.
+### 📌 Data Structures
+- Uses `struct` to manage students (Name, ID, Email, Password)
+- Dynamic resizing for storing student/admin lists
 
-**Planned Enhancements:**
-- Implement persistent data storage using files or a database (e.g., SQLite or JSON)
-- Add a GUI version (Windows Forms or WPF)
-- Improve password encryption & user session management
-- Add localization/multi-language support
+### 📁 File Paths
+- Course materials are read from:
+  - `materiats University/level [1-3]/semester [1-2]`
+  - Example path:  
+    `C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\`
+
+### 🧪 Validation Functions
+- `validateInput()` – numeric input check
+- `validateEmail()` – valid email formats only
+- `validateName()` – ensures alphabetic names, 3–20 chars
+- `validatePassword()` – min 8-character password enforcement
 
 ---
 
-## 🧑‍💻 How to Run
+## 🕒 Update History
+
+| Version | Date         | Description |
+|---------|--------------|-------------|
+| 0.1     | May 1, 2025  | Initial release with basic login & admin prototype |
+| 0.2     | June 7, 2025 | Course material files, improved admin tools, validation upgrades, UI refinements |
+
+---
+
+## 🚀 Planned Improvements
+
+- 💾 Persistent data storage (via files or databases)
+- 📝 Course registration functionality
+- 📊 Grade tracking and reporting
+- 🧑‍🏫 Faculty account support
+- 🌐 Web-based version (ASP.NET or Blazor)
+
+---
+
+## 💻 How to Run
 
 1. Clone or download the project
 2. Open the solution in **Visual Studio**
 3. Build and run the application (`Ctrl + F5`)
-4. Follow the menu instructions in the console interface
+4. Follow console prompts to navigate and interact with the system
 
 ---
 
-## 💡 Example
+## 💡 Example Console Output
 
-Console Welcome Banner:
- __   __        __   __        _______
-|  | |  |      |  | |  |      |  _    |
-|  |_|  |      |  |_|  |      | |_|   |
-|       |      |       |      |       |
-|_     _| ___  |       | ___  |  _   |
-  |   |  |   | |   _   ||   | | |_|   |
-  |___|  |___| |__| |__||___| |_______|
-
- __   __  __    _  ___   __   __  _______  ______    _______  ___   _______  __   __
-|  | |  ||  |  | ||   | |  | |  ||       ||    _ |  |       ||   | |       ||  | |  |
-|  | |  ||   |_| ||   | |  |_|  ||    ___||   | ||  |  _____||   | |_     _||  |_|  |
-|  |_|  ||       ||   | |       ||   |___ |   |_||_ | |_____ |   |   |   |  |       |
-|       ||  _    ||   | |       ||    ___||    __  ||_____  ||   |   |   |  |_     _|
-|       || | |   ||   |  |     | |   |___ |   |  | | _____| ||   |   |   |    |   |
-|_______||_|  |__||___|   |___|  |_______||___|  |_||_______||___|   |___|    |___|
-
- _______  __   __  _______  _______  _______  __   __
-|       ||  | |  ||       ||       ||       ||  |_|  |
-|  _____||  |_|  ||  _____||_     _||    ___||       |
-| |_____ |       || |_____   |   |  |   |___ |       |
-|_____  ||_     _||_____  |  |   |  |    ___||       | Free Palestine
- _____| |  |   |   _____| |  |   |  |   |___ | ||_|| | v.0.1
-|_______|  |___|  |_______|  |___|  |_______||_|   |_| > Team Enactus <
+```
 Welcome to the Y.H.B University System
-Press any key to continue...
-…
 
-Menu Options:
-	1.	Login
-	2.	Register
-	3.	Admin
-	4.	About
-	5.	Exit
+ 1. Login  
+ 2. Register  
+ 3. Admin  
+ 4. About  
+ 5. Exit
+
+> Please choose an option:
+```
+
+---
+
+## 📋 Requirements
+
+- Windows OS  
+- .NET Framework  
+- ~500MB of disk space for storing material files  
 
 ---
 
@@ -111,17 +140,17 @@ Menu Options:
 
 - Developed by **Youssef Harby Bayoumi**
 - Supervised by **Enactus Community Training Team**
-- Special thanks to all mentors and reviewers who supported the project
+- Special thanks to mentors and peers for their support
 
 ---
 
 ## 🕊 Free Palestine
 
-This project includes a message of solidarity:
-> **Free Palestine** – Human rights and dignity for all
+> **Free Palestine** – Human rights and dignity for all people.  
+> This message is proudly displayed in the system banner.
 
 ---
 
 ## 📄 License
 
-This project is for educational and training purposes only. Feel free to use, learn from, and adapt it, but do not use it commercially without permission.
+This project is built for educational purposes. You may freely use or modify it for learning and development, but commercial use is prohibited without prior consent.
