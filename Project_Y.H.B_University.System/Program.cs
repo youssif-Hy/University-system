@@ -343,13 +343,14 @@ namespace Project_Y.H.B_University.System
                                 Console.WriteLine("1. Show Student Data");
                                 Console.WriteLine("2. Add some Student Data");
                                 Console.WriteLine("3. Edit data for a student");
+                                Console.WriteLine("4. delete data for a student");
                                 Console.Write("Please select an option: ");
                                 int option2 = 0;
                                 // التحقق من صحة الإدخال
-                                while (option2 != 1 && option2 != 2 && option2 != 3)
+                                while (option2 != 1 && option2 != 2 && option2 != 3 && option2 != 4)
                                 {
                                     option2 = validateInput(Console.ReadLine());
-                                    if (option2 != 1 && option2 != 2 && option2 != 3)
+                                    if (option2 != 1 && option2 != 2 && option2 != 3 && option2 != 4)
                                     {
                                         Console.WriteLine("Invalid option. Please try again.");
                                     }
@@ -413,12 +414,11 @@ namespace Project_Y.H.B_University.System
                                 else if (option2 == 3)
                                 {
                                     // تعديل بيانات طالب
-                                    Console.WriteLine("**********************************************************");
-                                    Console.Write("Enter the ID of the student you want to edit: ");
-                                    string idToEdit = Console.ReadLine();
-                                    for (int i = 0; i < student.Length; i++)
+                                    Console.Clear();
+                                    // التحقق من وجود بيانات للطلاب قبل محاولة تعديل أي طالب
+                                    if (student.Length != 0)
                                     {
-                                        ShowDataForEdit(data: student);
+                                        ShowDataForEditOrDelete(data: student);
                                         Console.Write("Enter the student number you want to edit: ");
                                         int studentNumber;
                                         while (true)
@@ -472,6 +472,54 @@ namespace Project_Y.H.B_University.System
                                             Console.Write("Enter new password: ");
                                             student[studentNumber - 1].Password = validatePassword(Console.ReadLine());
                                         }
+                                    }
+                                    // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لتعديلها
+                                    else
+                                    {
+                                        Console.WriteLine("**********************************************************");
+                                        Console.WriteLine("No student data available to edit.");
+                                        Console.WriteLine("**********************************************************\n\n");
+                                    }
+                                }
+
+                                // حذف بيانات طالب
+                                else if (option2 == 4)
+                                {
+                                    Console.Clear();
+                                    // التحقق من وجود بيانات للطلاب قبل محاولة حذف أي طالب
+                                    if (student.Length != 0)
+                                    {
+                                        // عرض بيانات الطلاب قبل الحذف
+                                        ShowDataForEditOrDelete(data: student);
+                                        Console.Write("Enter the student number you want to delete: ");
+                                        // التحقق من صحة إدخال رقم الطالب
+                                        int studentNumber;
+                                        while (true)
+                                        {
+                                            studentNumber = validateInput(Console.ReadLine());
+                                            if (studentNumber > 0 && studentNumber <= student.Length)
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                Console.Write("Invalid student number. Please enter a valid number: ");
+                                            }
+                                        }
+                                        // حذف بيانات الطالب المحدد من المصفوفة
+                                        for (int i = studentNumber - 1; i + 1 < student.Length; i++)
+                                        {
+                                            student[i] = student[i + 1];
+                                        }
+                                        // تقليص حجم المصفوفة بعد حذف الطالب
+                                        Array.Resize(ref student, student.Length - 1);
+                                    }
+                                    // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لحذفها
+                                    else
+                                    {
+                                        Console.WriteLine("**********************************************************");
+                                        Console.WriteLine("No student data available to delete.");
+                                        Console.WriteLine("**********************************************************\n\n");
                                     }
                                 }
                                 // سؤال المشرف إذا كان يريد الاستمرار في إدارة البيانات
@@ -684,7 +732,8 @@ namespace Project_Y.H.B_University.System
                 Console.WriteLine($"**********************************************************\nName:{data1.Name}\nID:{data1.ID}\nEmail:{data1.Email}\nPassword:{data1.Password}\n**********************************************************");
             }
         }
-        static void ShowDataForEdit(Data[] data)
+        // دالة لعرض بيانات الطلاب لتعديلها أو حذفها
+        static void ShowDataForEditOrDelete(Data[] data)
         {
             for (int i = 0; i < data.Length; i++)
             {
