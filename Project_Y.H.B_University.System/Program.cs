@@ -9,6 +9,7 @@ namespace Project_Y.H.B_University.System
 {
     internal class Program
     {
+        // دالة بيانات الطلاب
         private struct Data
         {
             public string Name;
@@ -50,6 +51,7 @@ namespace Project_Y.H.B_University.System
             Console.Write("Please select an option: ");
             int VBTOM,numStudents=0,semester=0,level=0;
             int option=0;
+            // التحقق من صحة الإدخال
             while (true)
             {
                 option = validateInput(Console.ReadLine());
@@ -75,114 +77,175 @@ namespace Project_Y.H.B_University.System
             Data[] student = new Data[0];
             Data[] student2 = new Data[0];
             Console.Clear();
+            // عرض واجهة المستخدم الرئيسية بناءً على الخيار المحدد من قبل المستخدم
             switch (option)
             {
                 case 1:
                     //login
+                    //تسجيل دخول الطلاب اذا كان هناك طلاب مسجلين مسبقًا
                     if (student.Length != 0)
                     {
                         check = false;
                         level = 0;
                         semester = 0;
-
-                        for (int i = 0; i < student.Length; i++)
+                        // استخدام حلقة for للسماح للمستخدم بمحاولة تسجيل الدخول حتى 3 مرات
+                        for (int i = 0; i <= 3; i++)
                         {
-                            Console.Write("Enter your ID: ");
-                            string id = Console.ReadLine();
-                            Console.Write("Enter your password: ");
-                            string password = Console.ReadLine();
-                            if (id == student[i].ID && password == student[i].Password)
+                            // حلقة for للتحقق من صحة بيانات تسجيل الدخول
+                            for (int j = 0; j < student.Length; j++)
                             {
-                                Console.Clear();
-                                Console.WriteLine("Login successful");
-                                Console.WriteLine("Welcome " + student[i].Name);
-                                check = true;
+                                // عرض رسالة لتسجيل الدخول
+                                Console.Write("Enter your ID: ");
+                                string id = Console.ReadLine();
+                                Console.Write("Enter your password: ");
+                                string password = Console.ReadLine();
+                                // التحقق من صحة بيانات تسجيل الدخول
+                                if (id == student[j].ID && password == student[j].Password)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Login successful");
+                                    Console.WriteLine("\nWelcome " + student[j].Name);
+                                    check = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Invalid ID or password");
+                                    Console.WriteLine("You have " + (2 - i) + " attempts left");
+                                }
+                            }
+                            // إذا تم تسجيل الدخول بنجاح، يتم كسر الحلقة
+                            if (check)
+                            {
                                 break;
                             }
-                            else
-                            {
-                                Console.Clear();
-                                Console.WriteLine("Invalid ID or password");
-                                Console.WriteLine("You have " + (2 - i) + " attempts left");
-                            }
                         }
-                        if (check)
+                        bool continueLogin = true;
+                        // حلقة while للسماح للمستخدم بالاستمرار في اخذ المراجع الخاصة بالجامعه حتى يختار الخروج
+                        while (continueLogin) 
                         {
-                            Console.WriteLine("1.level 1");
-                            Console.WriteLine("2.level 2");
-                            Console.WriteLine("3.level 3");
-                            Console.Write("Enter the level number for which you want materiats:");
-                            while (level != 1 && level != 2 && level != 3)
+                            
+                            if (check)
                             {
-                                level = validateInput(Console.ReadLine());
-                                if (level != 1 && level != 2 && level != 3)
+                                // عرض رسالة ترحيب واختيار المستوى الدراسي
+                                Console.Clear();
+                                Console.WriteLine("1.level 1");
+                                Console.WriteLine("2.level 2");
+                                Console.WriteLine("3.level 3");
+                                Console.Write("Enter the level number for which you want materiats:");
+                                // التحقق من صحة إدخال المستوى الدراسي
+                                while (level != 1 && level != 2 && level != 3)
+                                {
+                                    level = validateInput(Console.ReadLine());
+                                    if (level != 1 && level != 2 && level != 3)
+                                    {
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    }
+                                }
+                                Console.Clear();
+                                // عرض رسالة ترحيب واختيار الفصل الدراسي في المستوى الدراسي المحدد
+                                if (level == 1)
+                                {
+                                    Console.WriteLine("Welcome to level 1 materiats");
+                                    Console.WriteLine("1.First Semester");
+                                    Console.WriteLine("2.Second Semester");
+                                    Console.Write("Enter the semester number for which you want materiats:");
+                                    while (semester != 1 && semester != 2 && semester != 3)
+                                    {
+                                        semester = validateInput(Console.ReadLine());
+                                        if (semester != 1 && semester != 2 && semester != 3)
+                                        {
+                                            Console.WriteLine("Invalid option. Please try again.");
+                                        }
+                                    }
+                                    // عرض المواد الدراسية للمستوى الأول والفصل الدراسي المحدد من خلال الدالة showmateriatsLevel1
+                                    showmateriatsLevel1(semester);
+                                    Console.WriteLine("Press any key to continue...");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                           
+                           
+                                }
+                                else if (level == 2)
+                                {
+                                    Console.WriteLine("Welcome to level 2 resources");
+                                    Console.WriteLine("1.First Semester");
+                                    Console.WriteLine("2.Second Semester");
+                                    Console.Write("Enter the semester number for which you want materiats:");
+                                    while (semester != 1 && semester != 2 && semester != 3)
+                                    {
+                                        semester = validateInput(Console.ReadLine());
+                                        if (semester != 1 && semester != 2 && semester != 3)
+                                        {
+                                            Console.WriteLine("Invalid option. Please try again.");
+                                        }
+                                    }
+                                    // عرض المواد الدراسية للمستوى الثاني والفصل الدراسي المحدد من خلال الدالة showmateriatsLevel2
+                                    showmateriatsLevel2(semester);
+                                    Console.WriteLine("Press any key to continue...");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+                                else if (level == 3)
+                                {
+                                    Console.WriteLine("Welcome to level 3 resources");
+                                    Console.WriteLine("1.First Semester");
+                                    Console.WriteLine("2.Second Semester");
+                                    Console.Write("Enter the semester number for which you want materiats:");
+                                    while (semester != 1 && semester != 2 && semester != 3)
+                                    {
+                                        semester = validateInput(Console.ReadLine());
+                                        if (semester != 1 && semester != 2 && semester != 3)
+                                        {
+                                            Console.WriteLine("Invalid option. Please try again.");
+                                        }
+                                    }
+                                    // عرض المواد الدراسية للمستوى الثالث والفصل الدراسي المحدد من خلال الدالة showmateriatsLevel3
+                                    showmateriatsLevel3(semester);
+                                    Console.WriteLine("Press any key to continue...");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+                           
+                            }
+                            // اذا لم يتمكن المستخدم من تسجيل الدخول بعد 3 محاولات
+                            else if (!check)
+                            {
+                                Console.WriteLine("You have exceeded the maximum number of attempts");
+                                Console.WriteLine("If you have forgotten your password or ID, you must contact the administrator.");
+                                break;
+                            }
+                            // سؤال المستخدم إذا كان يريد المزيد من المواد الدراسية لمستويات أخرى
+                            Console.WriteLine("Do you want more materials for other levels?");
+                            Console.WriteLine("1.YES");
+                            Console.WriteLine("2.NO");
+                            Console.Write("Please select an option: ");
+                            int choice = 0;
+                            // التحقق من صحة الإدخال
+                            while (choice != 1 && choice != 2)
+                            {
+                                Console.Write("Enter your choice: ");
+                                choice = validateInput(Console.ReadLine());
+                                if (choice != 1 && choice != 2)
                                 {
                                     Console.WriteLine("Invalid option. Please try again.");
                                 }
                             }
-                            Console.Clear();
-                            if (level == 1)
+                            // إذا كان المستخدم يريد المزيد من المواد الدراسية
+                            if (choice == 1)
                             {
-                                Console.WriteLine("Welcome to level 1 materiats");
-                                Console.WriteLine("1.First Semester");
-                                Console.WriteLine("2.Second Semester");
-                                Console.Write("Enter the semester number for which you want materiats:");
-                                while (semester != 1 && semester != 2 && semester != 3)
-                                {
-                                    semester = validateInput(Console.ReadLine());
-                                    if (semester != 1 && semester != 2 && semester != 3)
-                                    {
-                                        Console.WriteLine("Invalid option. Please try again.");
-                                    }
-                                }
-                                showmateriatsLevel1(semester);
-                                Console.WriteLine("Press any key to continue...");
-                                Console.ReadKey();
-                                Console.Clear();
-
-
+                                level = 0; 
+                                semester = 0;
                             }
-                            else if (level == 2)
+                            // إذا كان المستخدم لا يريد المزيد من المواد الدراسية
+                            else if (choice == 2)
                             {
-                                Console.WriteLine("Welcome to level 2 resources");
-                                Console.WriteLine("1.First Semester");
-                                Console.WriteLine("2.Second Semester");
-                                Console.Write("Enter the semester number for which you want materiats:");
-                                while (semester != 1 && semester != 2 && semester != 3)
-                                {
-                                    semester = validateInput(Console.ReadLine());
-                                    if (semester != 1 && semester != 2 && semester != 3)
-                                    {
-                                        Console.WriteLine("Invalid option. Please try again.");
-                                    }
-                                }
-                                showmateriatsLevel2(semester);
-                                Console.WriteLine("Press any key to continue...");
-                                Console.ReadKey();
-                                Console.Clear();
+                                continueLogin = false; 
                             }
-                            else if (level == 3)
-                            {
-                                Console.WriteLine("Welcome to level 3 resources");
-                                Console.WriteLine("1.First Semester");
-                                Console.WriteLine("2.Second Semester");
-                                Console.Write("Enter the semester number for which you want materiats:");
-                                while (semester != 1 && semester != 2 && semester != 3)
-                                {
-                                    semester = validateInput(Console.ReadLine());
-                                    if (semester != 1 && semester != 2 && semester != 3)
-                                    {
-                                        Console.WriteLine("Invalid option. Please try again.");
-                                    }
-                                }
-                                showmateriatsLevel3(semester);
-                                Console.WriteLine("Press any key to continue...");
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-
                         }
                     }
+                    // إذا لم يكن هناك طلاب مسجلين مسبقًا
                     else
                     { 
                         Console.WriteLine("**********************************************************");
@@ -201,6 +264,7 @@ namespace Project_Y.H.B_University.System
                     break;
                 case 2:
                     //register
+                    //تسجيل دخول الطلاب اذا لم يكن هناك طلاب مسجلين مسبقًا
                     if (student.Length == 0 )
                     {
                         student = new Data[1];
@@ -214,13 +278,16 @@ namespace Project_Y.H.B_University.System
                         student[0].Password = validatePassword(Console.ReadLine());
                         Console.WriteLine("Student registered successfully.");
                     }
+                    //تسجيل دخول الطلاب اذا كان هناك طلاب مسجلين مسبقًا
                     else if (student.Length != 0)
                     {
+                        //استخدام نفس الطريقة لتكبير مصفوفة الطلاب وإضافة طالب جديد
                         student2 = new Data[student.Length];
                         Array.Copy(student, student2, student.Length);
                         student = new Data[student.Length + 1];
                         Array.Copy(student2, student, student2.Length);
                         student2 = null;
+                        // عرض رسالة لإدخال بيانات الطالب الجديد
                         for (int i = student.Length-1; i < student.Length; i++)
                         {
                             Console.WriteLine("Enter data for student " + (i + 1));
@@ -235,7 +302,6 @@ namespace Project_Y.H.B_University.System
                             Console.WriteLine("Student registered successfully.");
                         }
                     }
-                    
                     VBTOM = Switch1();
                     if (VBTOM == 1) goto case 1;
                     else if (VBTOM == 2) goto case 2;
@@ -246,11 +312,13 @@ namespace Project_Y.H.B_University.System
                 case 3:
                     //admin
                     Console.Clear();
+                    // واجهة المشرف الافتراضية
                     Console.WriteLine("welcome Admin");
                     Console.WriteLine("1. Login ");
                     Console.WriteLine("2. Register");
                     Console.Write("Please select an option: ");
                     int option1 = 0;
+                    // التحقق من صحة الإدخال
                     while (option1 != 1 && option1 != 2)
                     {
                         option1 = validateInput(Console.ReadLine());
@@ -260,77 +328,186 @@ namespace Project_Y.H.B_University.System
                         }
                     }
                     bool isValid;
+                    // التحقق من صحة بيانات المشرف
                     if (option1 == 1)
                     {
                         isValid = Access_Permission(adminusername, adminpassword);
                         if (isValid)
                         {
-                            Console.Clear();
-                            Console.WriteLine("***********************************************************");
-                            Console.WriteLine("Welcome Admin");
-                            Console.WriteLine("1. Show Student Data");
-                            Console.WriteLine("2. Add some Student Data");
-                            Console.Write("Please select an option: ");
-                            int option2 = 0;
-                            while (option2 != 1 && option2 != 2)
-                            {
-                                option2 = validateInput(Console.ReadLine());
-                                if (option2 != 1 && option2 != 2)
+                            while (true)
+                            { 
+                                Console.Clear();
+                                // عرض واجهة المشرف
+                                Console.WriteLine("***********************************************************");
+                                Console.WriteLine("Welcome Admin");
+                                Console.WriteLine("1. Show Student Data");
+                                Console.WriteLine("2. Add some Student Data");
+                                Console.WriteLine("3. Edit data for a student");
+                                Console.Write("Please select an option: ");
+                                int option2 = 0;
+                                // التحقق من صحة الإدخال
+                                while (option2 != 1 && option2 != 2 && option2 != 3)
                                 {
-                                    Console.WriteLine("Invalid option. Please try again.");
+                                    option2 = validateInput(Console.ReadLine());
+                                    if (option2 != 1 && option2 != 2 && option2 != 3)
+                                    {
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    }
                                 }
-                            }
-                            Console.WriteLine("***********************************************************\n\n");
-                            if (option2 == 1)
-                            {
-                                if (student.Length != 0) 
+                                Console.WriteLine("***********************************************************\n\n");
+                                // إذا كان المشرف يريد عرض بيانات الطلاب
+                                if (option2 == 1)
                                 {
-                                    Console.WriteLine("**********************************************************");
-                                    Console.WriteLine("Welcome to the student data section");
-                                    Console.WriteLine("Student Data:");
-                                    ShowData(student);
-                                    Console.WriteLine("**********************************************************\n\n");
-                                    Console.WriteLine("Press any key to continue...");
-                                    Console.ReadKey();
+                                    // عرض بيانات الطلاب
+                                    if (student.Length != 0)
+                                    {
+                                        Console.WriteLine("**********************************************************");
+                                        Console.WriteLine("Welcome to the student data section");
+                                        Console.WriteLine("Student Data:");
+                                        ShowData(student);
+                                        Console.WriteLine("**********************************************************\n\n");
+                                        Console.WriteLine("Press any key to continue...");
+                                        Console.ReadKey();
+                                    }
+                                    // إذا لم يكن هناك بيانات للطلاب
+                                    else
+                                    {
+                                        Console.WriteLine("**********************************************************");
+                                        Console.WriteLine("No student data available.");
+                                        Console.WriteLine("**********************************************************\n\n");
+                                        Console.WriteLine("Press any key to continue...");
+                                        Console.ReadKey();
+                                    }
                                 }
-                                else
+                                else if (option2 == 2)
                                 {
+                                    // إضافة بيانات طلاب جديدة
                                     Console.WriteLine("**********************************************************");
-                                    Console.WriteLine("No student data available.");
-                                    Console.WriteLine("**********************************************************\n\n");
-                                    Console.WriteLine("Press any key to continue...");
-                                    Console.ReadKey();
+                                    Console.Write("Enter the number of additional students: ");
+                                    numStudents = validateInput(Console.ReadLine());
+                                    // طريقة لتكبير مصفوفة الطلاب وإضافة بيانات جديدة
+                                    student2 = new Data[student.Length];
+                                    // نسخ البيانات القديمة إلى المصفوفة الجديدة
+                                    Array.Copy(student, student2, student.Length);
+                                    // تكبير المصفوفة الأصلية 
+                                    student = new Data[student.Length + numStudents];
+                                    // نسخ البيانات من المصفوفة الجديدة إلى المصفوفة الأصلية
+                                    Array.Copy(student2, student, student2.Length);
+                                    student2 = null;
+                                    // إضافة بيانات الطلاب الجدد
+                                    for (int i = student.Length - numStudents; i < student.Length; i++)
+                                    {
+                                        // عرض رسالة لإدخال بيانات الطالب
+                                        Console.WriteLine("Enter data for student " + (i + 1));
+                                        Console.Write("Enter student name: ");
+                                        student[i].Name = validateName(Console.ReadLine());
+                                        Console.Write("Enter student ID: ");
+                                        student[i].ID = Console.ReadLine();
+                                        Console.Write("Enter student email: ");
+                                        student[i].Email = validateEmail(Console.ReadLine());
+                                        Console.Write("Enter student password: ");
+                                        student[i].Password = validatePassword(Console.ReadLine());
+                                        Console.WriteLine("**********************************************************");
+                                    }
                                 }
-                            }
-                            else if (option2 == 2)
-                            {
-                                Console.WriteLine("**********************************************************");
-                                Console.Write("Enter the number of additional students: ");
-                                numStudents = validateInput(Console.ReadLine());
-                                student2 = new Data[student.Length];
-                                Array.Copy(student, student2, student.Length);
-                                student = new Data[student.Length + numStudents];
-                                Array.Copy(student2, student, student2.Length);
-                                student2 = null;
-                                for (int i = student.Length-numStudents; i < student.Length; i++)
+                                else if (option2 == 3)
                                 {
-                                    Console.WriteLine("Enter data for student " + (i + 1));
-                                    Console.Write("Enter student name: ");
-                                    student[i].Name = validateName(Console.ReadLine());
-                                    Console.Write("Enter student ID: ");
-                                    student[i].ID = Console.ReadLine();
-                                    Console.Write("Enter student email: ");
-                                    student[i].Email = validateEmail(Console.ReadLine());
-                                    Console.Write("Enter student password: ");
-                                    student[i].Password = validatePassword(Console.ReadLine());
+                                    // تعديل بيانات طالب
                                     Console.WriteLine("**********************************************************");
+                                    Console.Write("Enter the ID of the student you want to edit: ");
+                                    string idToEdit = Console.ReadLine();
+                                    for (int i = 0; i < student.Length; i++)
+                                    {
+                                        ShowDataForEdit(data: student);
+                                        Console.Write("Enter the student number you want to edit: ");
+                                        int studentNumber;
+                                        while (true)
+                                        {
+                                            studentNumber = validateInput(Console.ReadLine());
+                                            if (studentNumber > 0 && studentNumber <= student.Length)
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                Console.Write("Invalid student number. Please enter a valid number: ");
+                                            }
+                                        }
+                                        Console.Clear();
+                                        Console.WriteLine($"**********************************************************\nStudent Number: {studentNumber}\nName:{student[studentNumber - 1].Name}\nID:{student[studentNumber - 1].ID}\nEmail:{student[studentNumber - 1].Email}\nPassword:{student[studentNumber - 1].Password}\n**********************************************************");
+                                        Console.WriteLine("What do you want to edit?");
+                                        Console.WriteLine("1. Name");
+                                        Console.WriteLine("2. ID");
+                                        Console.WriteLine("3. Email");
+                                        Console.WriteLine("4. Password");
+                                        Console.Write("Please select an option: ");
+                                        int editOption = 0;
+                                        // التحقق من صحة الإدخال
+                                        while (editOption != 1 && editOption != 2 && editOption != 3 && editOption != 4)
+                                        {
+                                            editOption = validateInput(Console.ReadLine());
+                                            if (editOption != 1 && editOption != 2 && editOption != 3 && editOption != 4)
+                                            {
+                                                Console.WriteLine("Invalid option. Please try again.");
+                                            }
+                                        }
+                                        // تعديل البيانات بناءً على الخيار المحدد
+                                        if (editOption == 1)
+                                        {
+                                            Console.Write("Enter new name: ");
+                                            student[studentNumber - 1].Name = validateName(Console.ReadLine());
+                                        }
+                                        else if (editOption == 2)
+                                        {
+                                            Console.Write("Enter new ID: ");
+                                            student[studentNumber - 1].ID = Console.ReadLine();
+                                        }
+                                        else if (editOption == 3)
+                                        {
+                                            Console.Write("Enter new email: ");
+                                            student[studentNumber - 1].Email = validateEmail(Console.ReadLine());
+                                        }
+                                        else if (editOption == 4)
+                                        {
+                                            Console.Write("Enter new password: ");
+                                            student[studentNumber - 1].Password = validatePassword(Console.ReadLine());
+                                        }
+                                    }
+                                }
+                                // سؤال المشرف إذا كان يريد الاستمرار في إدارة البيانات
+                                Console.WriteLine("Do you want to continue managing student data?");
+                                Console.WriteLine("1.YES");
+                                Console.WriteLine("2.NO");
+                                Console.Write("Please select an option: ");
+                                int continueOption = 0;
+                                // التحقق من صحة الإدخال
+                                while (continueOption != 1 && continueOption != 2)
+                                {
+                                    continueOption = validateInput(Console.ReadLine());
+                                    if (continueOption != 1 && continueOption != 2)
+                                    {
+                                        Console.WriteLine("Invalid option. Please try again.");
+                                    }
+                                }
+                                // إذا كان المشرف يريد الاستمرار في إدارة البيانات
+                                if (continueOption == 1)
+                                {
+                                    // سوف تستمر الحلقة في عرض واجهة المشرف
+                                }
+                                // إذا كان المشرف لا يريد الاستمرار في إدارة البيانات
+                                else if (continueOption == 2)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Exiting admin interface...");
+                                    break; // الخروج من الحلقة
                                 }
                             }
                         }
                     }
                     else if (option1 == 2)
                     {
-                        adminusername2 =new string[adminusername.Length+1];
+                        // استخدام نفس الطريقة لتكبير مصفوفة المشرفين وإضافة مشرف جديد
+                        adminusername2 = new string[adminusername.Length+1];
                         Array.Copy(adminusername, adminusername2, adminusername.Length);
                         adminusername = new string[adminusername.Length + 1];
                         Array.Copy(adminusername2, adminusername, adminusername2.Length);
@@ -340,16 +517,11 @@ namespace Project_Y.H.B_University.System
                         adminpassword = new string[adminpassword.Length + 1];
                         Array.Copy(adminpassword2, adminpassword, adminpassword.Length);
                         adminpassword2 = null;
+                        // استخدام دالة RegisterForAdmin لتسجيل مشرف جديد
                         RegisterForAdmin(adminusername, adminpassword);
                         Console.Clear();
                         Console.WriteLine("New admin registered successfully.");
                     }
-                    else
-                    {
-                        Console.Clear();
-                        Console.WriteLine("Invalid option");
-                    }
-
                     VBTOM = Switch1();
                     if (VBTOM == 1) goto case 1;
                     else if (VBTOM == 2) goto case 2;
@@ -360,14 +532,15 @@ namespace Project_Y.H.B_University.System
                 case 4:
                     //about
                     Console.Clear();
+                    // عرض معلومات حول المشروع
                     Console.WriteLine("**********************************************************");
                     Console.WriteLine("Welcome to the Y.H.B University System");
                     Console.WriteLine("About the Project\n\nThis project is a university system designed to assist students and administrators in managing student data and resources.\n\n");
                     Console.WriteLine("Origin\n\nThis project was created by Youssef Harby Bayoumi\r\nIt is the final project for a training program in collaboration with the Enactus community.\n");
                     Console.WriteLine("Program Description\n\nThis system is designed to be used by both students and university administrators.\n\n•   * Administrators use the system to store and manage student data, which can be retrieved upon request.\n\n•   * Students use the program to register their information or log in to access useful resources such as book links or PDF files available within the system.\n\n");
                     Console.WriteLine("Future Goals\n\nThe developer hoped to make the system capable of saving data in a dedicated data file, but due to time constraints, this feature has not been implemented yet.\r\nTherefore, the program is still under development and not a complete version as of now.\n\n");
-                    Console.WriteLine("Update History\n\n   * Project development started on April 21, 2025\n\n   * Submitted on May 1, 2025");
-                    Console.WriteLine("   * Version 0.1\n\n");
+                    Console.WriteLine("Update History\n\n   * Project development started on April 21, 2025\n\n   * Submitted on May 1, 2025\n\n   * First update Jun 7, 2025");
+                    Console.WriteLine("   * Version 0.2\n\n");
                     Console.WriteLine("**********************************************************\n");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Press any key to continue...");
@@ -388,9 +561,11 @@ namespace Project_Y.H.B_University.System
                     break;
             }
         }
+        // دالة لعرض واجهة التبديل بين الخيارات و اذا كان المستخدم يريد الاستمرار في البرنامج أم لا
         public static int Switch1()
         {
             Console.Clear();
+            // عرض خيارات الاستمرار في البرنامج
             int option;
             while (true)
             {
@@ -406,6 +581,7 @@ namespace Project_Y.H.B_University.System
                     Console.WriteLine("Invalid option. Please try again.");
                 Console.WriteLine("****************************************************************************************************");
             }
+            // إذا كان المستخدم يريد الاستمرار في البرنامج، يتم عرض الخيارات الرئيسية مرة أخرى
             if (option == 1)
             { 
                 Console.Clear();
@@ -416,10 +592,11 @@ namespace Project_Y.H.B_University.System
                 Console.WriteLine("4. About");
                 Console.WriteLine("5. Exit\n");
                 Console.Write("Please select an option: ");
+                // التحقق من صحة الإدخال
                 while (true)
                 {
                     option = validateInput(Console.ReadLine());
-                    if (option > 5 || option < 0)
+                    if (option >= 5 || option < 0)
                     {
                         Console.Write("Invalid option. Please enter a valid number: ");
                     }
@@ -431,12 +608,14 @@ namespace Project_Y.H.B_University.System
                 }
                 Console.WriteLine("**********************************************************");
             }
-            else 
+            // إذا كان المستخدم لا يريد الاستمرار في البرنامج، يتم عرض رسالة وداع والخروج من البرنامج
+            else
             {
                 Exit_Message();
             }
             return option;
         }
+        // دالة للخروج من البرنامج مع رسالة وداع
         static void Exit_Message()
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -450,6 +629,7 @@ namespace Project_Y.H.B_University.System
             Console.ForegroundColor = ConsoleColor.White;
             Environment.Exit(0);
         }
+        // دالة لتسجيل الدخول والتحقق من صلاحيات المشرف
         static bool Access_Permission(string [] adminusername, string[] adminpassword)
         {
             int VACCESSP = 3;
@@ -496,6 +676,7 @@ namespace Project_Y.H.B_University.System
             }
             return isValid;
         }
+        // دالة لعرض بيانات الطلاب
         static void ShowData(Data[] data)
         {
             foreach (Data data1 in data)
@@ -503,10 +684,19 @@ namespace Project_Y.H.B_University.System
                 Console.WriteLine($"**********************************************************\nName:{data1.Name}\nID:{data1.ID}\nEmail:{data1.Email}\nPassword:{data1.Password}\n**********************************************************");
             }
         }
+        static void ShowDataForEdit(Data[] data)
+        {
+            for (int i = 0; i < data.Length; i++)
+            {
+                Console.WriteLine($"**********************************************************\nStudent Number: {i+1}\nName:{data[i].Name}\nID:{data[i].ID}\nEmail:{data[i].Email}\nPassword:{data[i].Password}\n**********************************************************");
+            }
+        }
+        // دالة لتسجيل مشرف جديد
         static void RegisterForAdmin(string[] adminusername,string[] adminpassword)
         {
             Console.WriteLine("You need to enter an existing administrator account to register a new admin.");
-            bool x= Access_Permission(adminusername, adminpassword);
+            // التحقق من صحة بيانات المشرف الحالي
+            bool x = Access_Permission(adminusername, adminpassword);
             if (x)
             {
                 
@@ -525,6 +715,7 @@ namespace Project_Y.H.B_University.System
                 Console.WriteLine("**********************************************************");
             }
         }
+        // دالة لعرض المواد الدراسية للمستوى الأول
         static void showmateriatsLevel1(int semester)
         {
             string path;
@@ -545,6 +736,7 @@ namespace Project_Y.H.B_University.System
                 }
             }
         }
+        // دالة لعرض المواد الدراسية للمستوى الثاني
         static void showmateriatsLevel2(int semester)
         {
             string path;
@@ -565,6 +757,7 @@ namespace Project_Y.H.B_University.System
                 }
             }
         }
+        // دالة لعرض المواد الدراسية للمستوى الثالث
         static void showmateriatsLevel3(int semester)
         {
             string path;
@@ -585,19 +778,18 @@ namespace Project_Y.H.B_University.System
                 }
             }
         }
+        // دالة للتحقق من صحة الإدخال
         static int validateInput(string input)
         {
             int value;
             while (!int.TryParse(input, out value))
             {
-
-                Console.WriteLine("**********************************************************");
                 Console.Write("Invalid input. Please enter a valid number: ");
                 input = Console.ReadLine();
-                Console.WriteLine("**********************************************************");
             }
             return value;
         }
+        // دالة للتحقق من صحة البريد الإلكتروني
         static string validateEmail(string email)
         {
             bool isValid = false;
@@ -615,6 +807,7 @@ namespace Project_Y.H.B_University.System
             }
             return email;
         }
+        // دالة للتحقق من صحة الاسم
         static string validateName(string name)
         {
             bool isValid = false;
@@ -632,6 +825,7 @@ namespace Project_Y.H.B_University.System
             }
             return name;
         }
+        // دالة للتحقق من صحة كلمة المرور
         static string validatePassword(string password)
         {
             bool isValid = false;
