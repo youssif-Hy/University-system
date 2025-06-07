@@ -29,7 +29,7 @@ namespace Project_Y.H.B_University.System
             Console.WriteLine(" __   __  __    _  ___   __   __  _______  ______    _______  ___   _______  __   __   \r\n|  | |  ||  |  | ||   | |  | |  ||       ||    _ |  |       ||   | |       ||  | |  |  \r\n|  | |  ||   |_| ||   | |  |_|  ||    ___||   | ||  |  _____||   | |_     _||  |_|  |  \r\n|  |_|  ||       ||   | |       ||   |___ |   |_||_ | |_____ |   |   |   |  |       |  \r\n|       ||  _    ||   | |       ||    ___||    __  ||_____  ||   |   |   |  |_     _|  \r\n|       || | |   ||   |  |     | |   |___ |   |  | | _____| ||   |   |   |    |   |    \r\n|_______||_|  |__||___|   |___|  |_______||___|  |_||_______||___|   |___|    |___|    \r\n");
             Console.Write(" _______  __   __  _______  _______  _______  __   __                                  \r\n|       ||  | |  ||       ||       ||       ||  |_|  |                                 \r\n|  _____||  |_|  ||  _____||_     _||    ___||       |                                 \r\n| |_____ |       || |_____   |   |  |   |___ |       |                                 \r\n|_____  ||_     _||_____  |  |   |  |    ___||       | Free Palestine                                \r\n _____| |  |   |   _____| |  |   |  |   |___ | ||_|| |");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write(" v.0.2");
+            Console.Write(" v.0.2.1");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write("                                 \r\n|_______|  |___|  |_______|  |___|  |_______||_|   |_|");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -588,7 +588,7 @@ namespace Project_Y.H.B_University.System
                     Console.WriteLine("Program Description\n\nThis system is designed to be used by both students and university administrators.\n\n•   * Administrators use the system to store and manage student data, which can be retrieved upon request.\n\n•   * Students use the program to register their information or log in to access useful resources such as book links or PDF files available within the system.\n\n");
                     Console.WriteLine("Future Goals\n\nThe developer hoped to make the system capable of saving data in a dedicated data file, but due to time constraints, this feature has not been implemented yet.\r\nTherefore, the program is still under development and not a complete version as of now.\n\n");
                     Console.WriteLine("Update History\n\n   * Project development started on April 21, 2025\n\n   * Submitted on May 1, 2025\n\n   * First update Jun 7, 2025");
-                    Console.WriteLine("   * Version 0.2\n\n");
+                    Console.WriteLine("   * Version 0.2.1\n\n");
                     Console.WriteLine("**********************************************************\n");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Press any key to continue...");
