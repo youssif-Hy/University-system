@@ -9,17 +9,17 @@ namespace Project_Y.H.B_University.System
 {
     internal class Program
     {
-        // دالة بيانات الطلاب
+        // هيكل بيانات لتخزين معلومات الطلاب
         private struct Data
         {
             public string Name;
             public string ID;
             public string Email;
             public string Password;
+            public Double GPA;
         }
         static void Main(string[] args)
         {
-
             //logein
             //Home interface
             //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ namespace Project_Y.H.B_University.System
             Console.WriteLine(" __   __  __    _  ___   __   __  _______  ______    _______  ___   _______  __   __   \r\n|  | |  ||  |  | ||   | |  | |  ||       ||    _ |  |       ||   | |       ||  | |  |  \r\n|  | |  ||   |_| ||   | |  |_|  ||    ___||   | ||  |  _____||   | |_     _||  |_|  |  \r\n|  |_|  ||       ||   | |       ||   |___ |   |_||_ | |_____ |   |   |   |  |       |  \r\n|       ||  _    ||   | |       ||    ___||    __  ||_____  ||   |   |   |  |_     _|  \r\n|       || | |   ||   |  |     | |   |___ |   |  | | _____| ||   |   |   |    |   |    \r\n|_______||_|  |__||___|   |___|  |_______||___|  |_||_______||___|   |___|    |___|    \r\n");
             Console.Write(" _______  __   __  _______  _______  _______  __   __                                  \r\n|       ||  | |  ||       ||       ||       ||  |_|  |                                 \r\n|  _____||  |_|  ||  _____||_     _||    ___||       |                                 \r\n| |_____ |       || |_____   |   |  |   |___ |       |                                 \r\n|_____  ||_     _||_____  |  |   |  |    ___||       | Free Palestine                                \r\n _____| |  |   |   _____| |  |   |  |   |___ | ||_|| |");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write(" v.0.2.1");
+            Console.Write(" v.0.2");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write("                                 \r\n|_______|  |___|  |_______|  |___|  |_______||_|   |_|");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -54,7 +54,7 @@ namespace Project_Y.H.B_University.System
             // التحقق من صحة الإدخال
             while (true)
             {
-                option = validateInput(Console.ReadLine());
+                option = ValidateInput(Console.ReadLine());
                 if (option>5||option<0)
                 {
                     Console.Write("Invalid option. Please enter a valid number: ");
@@ -62,8 +62,7 @@ namespace Project_Y.H.B_University.System
                 else if (option==1||option==2||option==3||option==4||option==5)
                 {
                     break;
-                }
-                
+                } 
             }
             bool check = false;
             string[] adminusername = new string[3];
@@ -137,7 +136,7 @@ namespace Project_Y.H.B_University.System
                                 // التحقق من صحة إدخال المستوى الدراسي
                                 while (level != 1 && level != 2 && level != 3)
                                 {
-                                    level = validateInput(Console.ReadLine());
+                                    level = ValidateInput(Console.ReadLine());
                                     if (level != 1 && level != 2 && level != 3)
                                     {
                                         Console.WriteLine("Invalid option. Please try again.");
@@ -153,14 +152,14 @@ namespace Project_Y.H.B_University.System
                                     Console.Write("Enter the semester number for which you want materiats:");
                                     while (semester != 1 && semester != 2 && semester != 3)
                                     {
-                                        semester = validateInput(Console.ReadLine());
+                                        semester = ValidateInput(Console.ReadLine());
                                         if (semester != 1 && semester != 2 && semester != 3)
                                         {
                                             Console.WriteLine("Invalid option. Please try again.");
                                         }
                                     }
                                     // عرض المواد الدراسية للمستوى الأول والفصل الدراسي المحدد من خلال الدالة showmateriatsLevel1
-                                    showmateriatsLevel1(semester);
+                                    ShowMateriatsLevel1(semester);
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadKey();
                                     Console.Clear();
@@ -175,14 +174,14 @@ namespace Project_Y.H.B_University.System
                                     Console.Write("Enter the semester number for which you want materiats:");
                                     while (semester != 1 && semester != 2 && semester != 3)
                                     {
-                                        semester = validateInput(Console.ReadLine());
+                                        semester = ValidateInput(Console.ReadLine());
                                         if (semester != 1 && semester != 2 && semester != 3)
                                         {
                                             Console.WriteLine("Invalid option. Please try again.");
                                         }
                                     }
                                     // عرض المواد الدراسية للمستوى الثاني والفصل الدراسي المحدد من خلال الدالة showmateriatsLevel2
-                                    showmateriatsLevel2(semester);
+                                    ShowMateriatsLevel2(semester);
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadKey();
                                     Console.Clear();
@@ -195,14 +194,14 @@ namespace Project_Y.H.B_University.System
                                     Console.Write("Enter the semester number for which you want materiats:");
                                     while (semester != 1 && semester != 2 && semester != 3)
                                     {
-                                        semester = validateInput(Console.ReadLine());
+                                        semester = ValidateInput(Console.ReadLine());
                                         if (semester != 1 && semester != 2 && semester != 3)
                                         {
                                             Console.WriteLine("Invalid option. Please try again.");
                                         }
                                     }
                                     // عرض المواد الدراسية للمستوى الثالث والفصل الدراسي المحدد من خلال الدالة showmateriatsLevel3
-                                    showmateriatsLevel3(semester);
+                                    ShowMateriatsLevel3(semester);
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadKey();
                                     Console.Clear();
@@ -226,7 +225,7 @@ namespace Project_Y.H.B_University.System
                             while (choice != 1 && choice != 2)
                             {
                                 Console.Write("Enter your choice: ");
-                                choice = validateInput(Console.ReadLine());
+                                choice = ValidateInput(Console.ReadLine());
                                 if (choice != 1 && choice != 2)
                                 {
                                     Console.WriteLine("Invalid option. Please try again.");
@@ -268,14 +267,14 @@ namespace Project_Y.H.B_University.System
                     if (student.Length == 0 )
                     {
                         student = new Data[1];
-                        Console.Write("Enter student name: ");
-                        student[0].Name = validateName(Console.ReadLine());
-                        Console.Write("Enter student ID: ");
+                        Console.Write("Enter your name: ");
+                        student[0].Name = ValidateName(Console.ReadLine());
+                        Console.Write("Enter your ID: ");
                         student[0].ID = Console.ReadLine();
-                        Console.Write("Enter student email: ");
-                        student[0].Email = validateEmail(Console.ReadLine());
-                        Console.Write("Enter student password: ");
-                        student[0].Password = validatePassword(Console.ReadLine());
+                        Console.Write("Enter your email: ");
+                        student[0].Email = ValidateEmail(Console.ReadLine());
+                        Console.Write("Enter your password: ");
+                        student[0].Password = ValidatePassword(Console.ReadLine());
                         Console.WriteLine("Student registered successfully.");
                     }
                     //تسجيل دخول الطلاب اذا كان هناك طلاب مسجلين مسبقًا
@@ -291,14 +290,14 @@ namespace Project_Y.H.B_University.System
                         for (int i = student.Length-1; i < student.Length; i++)
                         {
                             Console.WriteLine("Enter data for student " + (i + 1));
-                            Console.Write("Enter student name: ");
-                            student[i].Name = validateName(Console.ReadLine());
-                            Console.Write("Enter student ID: ");
+                            Console.Write("Enter your name: ");
+                            student[i].Name = ValidateName(Console.ReadLine());
+                            Console.Write("Enter your ID: ");
                             student[i].ID = Console.ReadLine();
-                            Console.Write("Enter student email: ");
-                            student[i].Email = validateEmail(Console.ReadLine());
-                            Console.Write("Enter student password: ");
-                            student[i].Password = validatePassword(Console.ReadLine());
+                            Console.Write("Enter your email: ");
+                            student[i].Email = ValidateEmail(Console.ReadLine());
+                            Console.Write("Enter your password: ");
+                            student[i].Password = ValidatePassword(Console.ReadLine());
                             Console.WriteLine("Student registered successfully.");
                         }
                     }
@@ -321,7 +320,7 @@ namespace Project_Y.H.B_University.System
                     // التحقق من صحة الإدخال
                     while (option1 != 1 && option1 != 2)
                     {
-                        option1 = validateInput(Console.ReadLine());
+                        option1 = ValidateInput(Console.ReadLine());
                         if (option1 != 1 && option1 != 2)
                         {
                             Console.WriteLine("Invalid option. Please try again.");
@@ -344,13 +343,14 @@ namespace Project_Y.H.B_University.System
                                 Console.WriteLine("2. Add some Student Data");
                                 Console.WriteLine("3. Edit data for a student");
                                 Console.WriteLine("4. delete data for a student");
+                                Console.WriteLine("5. delete all data for all students");
                                 Console.Write("Please select an option: ");
                                 int option2 = 0;
                                 // التحقق من صحة الإدخال
-                                while (option2 != 1 && option2 != 2 && option2 != 3 && option2 != 4)
+                                while (option2 != 1 && option2 != 2 && option2 != 3 && option2 != 4 && option2 != 5)
                                 {
-                                    option2 = validateInput(Console.ReadLine());
-                                    if (option2 != 1 && option2 != 2 && option2 != 3 && option2 != 4)
+                                    option2 = ValidateInput(Console.ReadLine());
+                                    if (option2 != 1 && option2 != 2 && option2 != 3 && option2 != 4 && option2 != 5)
                                     {
                                         Console.WriteLine("Invalid option. Please try again.");
                                     }
@@ -385,7 +385,7 @@ namespace Project_Y.H.B_University.System
                                     // إضافة بيانات طلاب جديدة
                                     Console.WriteLine("**********************************************************");
                                     Console.Write("Enter the number of additional students: ");
-                                    numStudents = validateInput(Console.ReadLine());
+                                    numStudents = ValidateInput(Console.ReadLine());
                                     // طريقة لتكبير مصفوفة الطلاب وإضافة بيانات جديدة
                                     student2 = new Data[student.Length];
                                     // نسخ البيانات القديمة إلى المصفوفة الجديدة
@@ -401,13 +401,15 @@ namespace Project_Y.H.B_University.System
                                         // عرض رسالة لإدخال بيانات الطالب
                                         Console.WriteLine("Enter data for student " + (i + 1));
                                         Console.Write("Enter student name: ");
-                                        student[i].Name = validateName(Console.ReadLine());
+                                        student[i].Name = ValidateName(Console.ReadLine());
                                         Console.Write("Enter student ID: ");
                                         student[i].ID = Console.ReadLine();
                                         Console.Write("Enter student email: ");
-                                        student[i].Email = validateEmail(Console.ReadLine());
+                                        student[i].Email = ValidateEmail(Console.ReadLine());
                                         Console.Write("Enter student password: ");
-                                        student[i].Password = validatePassword(Console.ReadLine());
+                                        student[i].Password = ValidatePassword(Console.ReadLine());
+                                        Console.Write("Enter student GPA: ");
+                                        student[i].GPA = ValidateGPA(double.Parse(Console.ReadLine()));
                                         Console.WriteLine("**********************************************************");
                                     }
                                 }
@@ -418,12 +420,13 @@ namespace Project_Y.H.B_University.System
                                     // التحقق من وجود بيانات للطلاب قبل محاولة تعديل أي طالب
                                     if (student.Length != 0)
                                     {
+                                        // عرض بيانات الطلاب قبل التعديل
                                         ShowDataForEditOrDelete(data: student);
                                         Console.Write("Enter the student number you want to edit: ");
                                         int studentNumber;
                                         while (true)
                                         {
-                                            studentNumber = validateInput(Console.ReadLine());
+                                            studentNumber = ValidateInput(Console.ReadLine());
                                             if (studentNumber > 0 && studentNumber <= student.Length)
                                             {
                                                 break;
@@ -440,13 +443,14 @@ namespace Project_Y.H.B_University.System
                                         Console.WriteLine("2. ID");
                                         Console.WriteLine("3. Email");
                                         Console.WriteLine("4. Password");
+                                        Console.WriteLine("5. GPA");
                                         Console.Write("Please select an option: ");
                                         int editOption = 0;
                                         // التحقق من صحة الإدخال
-                                        while (editOption != 1 && editOption != 2 && editOption != 3 && editOption != 4)
+                                        while (editOption != 1 && editOption != 2 && editOption != 3 && editOption != 4 && editOption != 5)
                                         {
-                                            editOption = validateInput(Console.ReadLine());
-                                            if (editOption != 1 && editOption != 2 && editOption != 3 && editOption != 4)
+                                            editOption = ValidateInput(Console.ReadLine());
+                                            if (editOption != 1 && editOption != 2 && editOption != 3 && editOption != 4 && editOption != 5)
                                             {
                                                 Console.WriteLine("Invalid option. Please try again.");
                                             }
@@ -455,7 +459,7 @@ namespace Project_Y.H.B_University.System
                                         if (editOption == 1)
                                         {
                                             Console.Write("Enter new name: ");
-                                            student[studentNumber - 1].Name = validateName(Console.ReadLine());
+                                            student[studentNumber - 1].Name = ValidateName(Console.ReadLine());
                                         }
                                         else if (editOption == 2)
                                         {
@@ -465,12 +469,17 @@ namespace Project_Y.H.B_University.System
                                         else if (editOption == 3)
                                         {
                                             Console.Write("Enter new email: ");
-                                            student[studentNumber - 1].Email = validateEmail(Console.ReadLine());
+                                            student[studentNumber - 1].Email = ValidateEmail(Console.ReadLine());
                                         }
                                         else if (editOption == 4)
                                         {
                                             Console.Write("Enter new password: ");
-                                            student[studentNumber - 1].Password = validatePassword(Console.ReadLine());
+                                            student[studentNumber - 1].Password = ValidatePassword(Console.ReadLine());
+                                        }
+                                        else if (editOption == 5)
+                                        {
+                                            Console.Write("Enter new GPA: ");
+                                            student[studentNumber - 1].GPA = ValidateGPA(double.Parse(Console.ReadLine()));
                                         }
                                     }
                                     // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لتعديلها
@@ -481,7 +490,6 @@ namespace Project_Y.H.B_University.System
                                         Console.WriteLine("**********************************************************\n\n");
                                     }
                                 }
-
                                 // حذف بيانات طالب
                                 else if (option2 == 4)
                                 {
@@ -496,7 +504,7 @@ namespace Project_Y.H.B_University.System
                                         int studentNumber;
                                         while (true)
                                         {
-                                            studentNumber = validateInput(Console.ReadLine());
+                                            studentNumber = ValidateInput(Console.ReadLine());
                                             if (studentNumber > 0 && studentNumber <= student.Length)
                                             {
                                                 break;
@@ -513,6 +521,48 @@ namespace Project_Y.H.B_University.System
                                         }
                                         // تقليص حجم المصفوفة بعد حذف الطالب
                                         Array.Resize(ref student, student.Length - 1);
+                                        ShowDataForEditOrDelete(data: student);
+                                    }
+                                    // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لحذفها
+                                    else
+                                    {
+                                        Console.WriteLine("**********************************************************");
+                                        Console.WriteLine("No student data available to delete.");
+                                        Console.WriteLine("**********************************************************\n\n");
+                                    }
+                                }
+                                else if (option2 == 5)
+                                {
+                                    // حذف جميع بيانات الطلاب
+                                    Console.Clear();
+                                    // التحقق من وجود بيانات للطلاب قبل محاولة حذفها
+                                    if (student.Length != 0)
+                                    {
+                                        Console.WriteLine("Are you sure you want to delete all student data?");
+                                        Console.WriteLine("1.YES");
+                                        Console.WriteLine("2.NO");
+                                        Console.Write("Please select an option: ");
+                                        int deleteOption = 0;
+                                        // التحقق من صحة الإدخال
+                                        while (deleteOption != 1 && deleteOption != 2)
+                                        {
+                                            deleteOption = ValidateInput(Console.ReadLine());
+                                            if (deleteOption != 1 && deleteOption != 2)
+                                            {
+                                                Console.WriteLine("Invalid option. Please try again.");
+                                            }
+                                        }
+                                        // إذا كان المشرف يريد حذف جميع البيانات
+                                        if (deleteOption == 1)
+                                        {
+                                            Array.Resize(ref student, 0); // تقليص المصفوفة إلى صفر
+                                            Console.WriteLine("All student data has been deleted successfully.");
+                                        }
+                                        // إذا كان المشرف لا يريد حذف جميع البيانات
+                                        else if (deleteOption == 2)
+                                        {
+                                            Console.WriteLine("No data was deleted.");
+                                        }
                                     }
                                     // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لحذفها
                                     else
@@ -531,7 +581,7 @@ namespace Project_Y.H.B_University.System
                                 // التحقق من صحة الإدخال
                                 while (continueOption != 1 && continueOption != 2)
                                 {
-                                    continueOption = validateInput(Console.ReadLine());
+                                    continueOption = ValidateInput(Console.ReadLine());
                                     if (continueOption != 1 && continueOption != 2)
                                     {
                                         Console.WriteLine("Invalid option. Please try again.");
@@ -588,7 +638,7 @@ namespace Project_Y.H.B_University.System
                     Console.WriteLine("Program Description\n\nThis system is designed to be used by both students and university administrators.\n\n•   * Administrators use the system to store and manage student data, which can be retrieved upon request.\n\n•   * Students use the program to register their information or log in to access useful resources such as book links or PDF files available within the system.\n\n");
                     Console.WriteLine("Future Goals\n\nThe developer hoped to make the system capable of saving data in a dedicated data file, but due to time constraints, this feature has not been implemented yet.\r\nTherefore, the program is still under development and not a complete version as of now.\n\n");
                     Console.WriteLine("Update History\n\n   * Project development started on April 21, 2025\n\n   * Submitted on May 1, 2025\n\n   * First update Jun 7, 2025");
-                    Console.WriteLine("   * Version 0.2.1\n\n");
+                    Console.WriteLine("   * Version 0.2\n\n");
                     Console.WriteLine("**********************************************************\n");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Press any key to continue...");
@@ -622,7 +672,7 @@ namespace Project_Y.H.B_University.System
                 Console.WriteLine("1:YES ");
                 Console.WriteLine("2:NO ");
                 Console.Write("Please select an option: ");
-                option = validateInput(Console.ReadLine());
+                option = ValidateInput(Console.ReadLine());
                 if (option == 1 || option == 2)
                     break;
                 else
@@ -643,8 +693,8 @@ namespace Project_Y.H.B_University.System
                 // التحقق من صحة الإدخال
                 while (true)
                 {
-                    option = validateInput(Console.ReadLine());
-                    if (option >= 5 || option < 0)
+                    option = ValidateInput(Console.ReadLine());
+                    if (option > 5 || option < 0)
                     {
                         Console.Write("Invalid option. Please enter a valid number: ");
                     }
@@ -729,7 +779,7 @@ namespace Project_Y.H.B_University.System
         {
             foreach (Data data1 in data)
             {
-                Console.WriteLine($"**********************************************************\nName:{data1.Name}\nID:{data1.ID}\nEmail:{data1.Email}\nPassword:{data1.Password}\n**********************************************************");
+                Console.WriteLine($"**********************************************************\nName:{data1.Name}\nID:{data1.ID}\nEmail:{data1.Email}\nPassword:{data1.Password}\nGPA:{data1.GPA}\n**********************************************************");
             }
         }
         // دالة لعرض بيانات الطلاب لتعديلها أو حذفها
@@ -737,7 +787,7 @@ namespace Project_Y.H.B_University.System
         {
             for (int i = 0; i < data.Length; i++)
             {
-                Console.WriteLine($"**********************************************************\nStudent Number: {i+1}\nName:{data[i].Name}\nID:{data[i].ID}\nEmail:{data[i].Email}\nPassword:{data[i].Password}\n**********************************************************");
+                Console.WriteLine($"**********************************************************\nStudent Number: {i + 1}\nName:{data[i].Name}\nID:{data[i].ID}\nEmail:{data[i].Email}\nPassword:{data[i].Password}\nGPA:{data[i].GPA}\n**********************************************************");
             }
         }
         // دالة لتسجيل مشرف جديد
@@ -765,7 +815,7 @@ namespace Project_Y.H.B_University.System
             }
         }
         // دالة لعرض المواد الدراسية للمستوى الأول
-        static void showmateriatsLevel1(int semester)
+        static void ShowMateriatsLevel1(int semester)
         {
             string path;
             if (semester == 1)
@@ -786,7 +836,7 @@ namespace Project_Y.H.B_University.System
             }
         }
         // دالة لعرض المواد الدراسية للمستوى الثاني
-        static void showmateriatsLevel2(int semester)
+        static void ShowMateriatsLevel2(int semester)
         {
             string path;
             if (semester == 1)
@@ -807,7 +857,7 @@ namespace Project_Y.H.B_University.System
             }
         }
         // دالة لعرض المواد الدراسية للمستوى الثالث
-        static void showmateriatsLevel3(int semester)
+        static void ShowMateriatsLevel3(int semester)
         {
             string path;
             if (semester == 1)
@@ -828,7 +878,7 @@ namespace Project_Y.H.B_University.System
             }
         }
         // دالة للتحقق من صحة الإدخال
-        static int validateInput(string input)
+        static int ValidateInput(string input)
         {
             int value;
             while (!int.TryParse(input, out value))
@@ -839,7 +889,7 @@ namespace Project_Y.H.B_University.System
             return value;
         }
         // دالة للتحقق من صحة البريد الإلكتروني
-        static string validateEmail(string email)
+        static string ValidateEmail(string email)
         {
             bool isValid = false;
             while (!isValid)
@@ -857,7 +907,7 @@ namespace Project_Y.H.B_University.System
             return email;
         }
         // دالة للتحقق من صحة الاسم
-        static string validateName(string name)
+        static string ValidateName(string name)
         {
             bool isValid = false;
             while (!isValid)
@@ -875,7 +925,7 @@ namespace Project_Y.H.B_University.System
             return name;
         }
         // دالة للتحقق من صحة كلمة المرور
-        static string validatePassword(string password)
+        static string ValidatePassword(string password)
         {
             bool isValid = false;
             while (!isValid)
@@ -891,6 +941,27 @@ namespace Project_Y.H.B_University.System
                 }
             }
             return password;
+        }
+        // دالة للتحقق من صحة معدل التقدير (GPA)
+        static double ValidateGPA(double GPA)
+        {
+            bool isValid = false;
+            while (!isValid)
+            {
+                if (GPA >= 0 && GPA <= 4)
+                {
+                    isValid = true;
+                }
+                else
+                {
+                    Console.Write("Invalid GPA. Please enter a valid GPA (0-4): ");
+                    while (!double.TryParse(Console.ReadLine(), out GPA) || GPA < 0 || GPA > 4)
+                    {
+                        Console.Write("Invalid input. Please enter a valid GPA (0-4): ");
+                    }
+                }
+            }
+            return GPA;
         }
     }
 }
