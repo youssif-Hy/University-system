@@ -75,8 +75,11 @@ Y.H.B University System is a console-based university management tool built in *
 - **Validation Methods:**
   - `validateInput()`, `validateEmail()`, `validateName()`, `validatePassword()`, `validateGPA()`
 - **File Path Example:**
-- materiats University/level [1-3]/semester [1-2]
-C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\
+  ```
+  materiats University/level [1-3]/semester [1-2]
+  C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\
+  ```
+
 ---
 
 ## 🔄 Update History
@@ -85,7 +88,7 @@ C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\
 |----------|-------------|----------------------------------------------|
 | 0.1      | May 1, 2025 | Initial release                              |
 | 0.2      | Jun 7, 2025 | Added deletion and validation tools          |
-| 0.3      | Jun 9, 2025 | GPA management + bulk deletion functionality |
+| 0.3      | Jun 7, 2025 | GPA management + bulk deletion functionality |
 
 ---
 
