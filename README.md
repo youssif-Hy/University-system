@@ -1,6 +1,6 @@
 # 🎓 Y.H.B University System
 
-**Version:** 0.2.1  
+**Version:** 0.3  
 **Developer:** Youssef Harby Bayoumi  
 **Training Program:** Final Project – Enactus Community  
 **Start Date:** April 21, 2025  
@@ -10,49 +10,51 @@
 
 ## 📘 About the Project
 
-Y.H.B University System is a console-based educational management system written in **C#**. It serves as a training project for student and administrator interactions within a university setting. The system provides features like authentication, academic material access, and admin-level student management.
+Y.H.B University System is a console-based university management tool built in **C#**, developed as part of a training program. The system focuses on student and admin operations including login, academic material access, GPA management, and full CRUD functionalities.
 
 ---
 
-## 🆕 What’s New in Version 0.2.1
+## 🆕 What’s New in Version 0.3
 
-- 🗑 **Student Deletion Feature**
-  - Admins can now **delete student records**
-  - Integrated confirmation prompts to prevent accidental data loss
+- 📊 **GPA Management System**
+  - Admins can now view and edit student GPAs
+  - GPA is validated (values between 0.0 and 4.0 only)
+  - GPA is stored and displayed in student records
 
-- 🧩 **Improved Admin Menu**
-  - New option added to manage deletions (Option 4)
-  - Unified function for edit and delete views: `ShowDataForEditOrDelete()`
+- 🧹 **Bulk Data Operations**
+  - Added "Delete All Students" feature for admin
+  - Confirmation prompts to prevent accidental data loss
 
-- ⚙️ **Functional Enhancements**
-  - Enhanced validation for edit/delete operations
-  - Better array management and resizing after deletions
+- 🧠 **Improved Logic & Flow**
+  - Student struct now includes GPA field
+  - Array resizing optimized for large-scale operations
 
-- 🚫 **Improved Error Handling**
-  - Clear messaging for invalid actions
-  - Robust checks for empty or invalid student selection
+- 🎨 **UI Enhancements**
+  - GPA now visible in student data displays
+  - Improved menu structure for better navigation
 
 ---
 
 ## 🧩 Full Feature Overview
 
 ### 🔐 User Authentication
-- Student login with **3-attempt limit**
-- Admin login with **role-based permissions**
-- Strong password validation (minimum 8 characters)
+- Secure login for students and admins
+- Login attempt limit (3 attempts)
+- Password strength enforcement
 
 ### 👨‍🎓 Student Functionalities
-- Access academic resources for:
-  - Level 1–3, each with two semesters
-- Personalized welcome on login
-- Structured material access by file system
+- Access academic materials by:
+  - 📘 Level 1 (Semesters 1 & 2)
+  - 📗 Level 2 (Semesters 1 & 2)
+  - 📕 Level 3 (Semesters 1 & 2)
+- Personalized greeting on login
+- GPA view in dashboard
 
 ### 👨‍🏫 Administrator Functionalities
-- View all student data
-- Add student (single or multiple)
-- Edit student info (Name, ID, Email, Password)
-- ✅ **Delete student records**
-- Add new administrators securely
+- View, add, edit, and delete student records
+- GPA editing & validation
+- Bulk student deletion
+- Add new admins with credentials
 
 ---
 
@@ -61,62 +63,56 @@ Y.H.B University System is a console-based educational management system written
 - **Language:** C# (.NET Console)
 - **IDE:** Visual Studio / VS Code
 - **Framework:** .NET Framework/Core
-- **Storage:** In-memory (arrays)
-- **File I/O:** Academic materials loaded from external files
+- **Storage:** In-memory arrays (temporary)
+- **File I/O:** Reads academic materials from local files
 
 ---
 
 ## 🧪 Technical Highlights
 
-- **Structs:** Used for defining student/admin entities
-- **Dynamic Arrays:** Resized during add/edit/delete
+- **Data Structures:**
+  - `struct` used for Student with GPA included
 - **Validation Methods:**
-  - `validateInput()` – Numeric input
-  - `validateEmail()` – Domain format support
-  - `validateName()` – Text-only name validation
-  - `validatePassword()` – Length & complexity
+  - `validateInput()`, `validateEmail()`, `validateName()`, `validatePassword()`, `validateGPA()`
 - **File Path Example:**
-  ```
-  materiats University/level [1-3]/semester [1-2]
-  Path: C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\
-  ```
-
+- materiats University/level [1-3]/semester [1-2]
+C:\Users\LEGION\Desktop\vs c2022\c#\Project_Y.H.B_University.System\
 ---
 
 ## 🔄 Update History
 
-| Version  | Date        | Notes                                  |
-|----------|-------------|----------------------------------------|
-| 0.1      | May 1, 2025 | Initial release                        |
-| 0.2      | Jun 7, 2025 | Added multi-level courses & admin tools|
-| 0.2.1    | Jun 7, 2025 | Student deletion, validation, cleanup  |
+| Version  | Date        | Notes                                        |
+|----------|-------------|----------------------------------------------|
+| 0.1      | May 1, 2025 | Initial release                              |
+| 0.2      | Jun 7, 2025 | Added deletion and validation tools          |
+| 0.3      | Jun 9, 2025 | GPA management + bulk deletion functionality |
 
 ---
 
 ## 🚧 Future Roadmap
 
-- Add persistent file/database storage
-- Implement course enrollment
-- Include GPA/grades tracking
-- Faculty login & content support
-- Full web version (ASP.NET or Blazor)
+- Persistent file or database storage
+- Course registration module
+- GPA analysis and report cards
+- Faculty panel & interaction
+- Web version using ASP.NET
 
 ---
 
 ## 💻 How to Run
 
-1. Clone or download the repository
-2. Open with Visual Studio
-3. Build and run (`Ctrl + F5`)
-4. Follow instructions in the console
+1. Clone the repository or copy the project
+2. Open the solution in Visual Studio
+3. Build and run (Ctrl + F5)
+4. Use menu to navigate between student/admin operations
 
 ---
 
 ## 🧑‍💻 Developer Info
 
-- 👨‍💻 Developed by **Youssef Harby Bayoumi**
-- 🎓 Project for **Enactus Community Training Program**
-- 📢 Feedback & contributions welcome!
+- 👨‍💻 **Youssef Harby Bayoumi**
+- 🎓 Project built under Enactus Training Initiative
+- 📬 Feedback and suggestions welcome!
 
 ---
 
@@ -129,5 +125,5 @@ This project includes a message of solidarity:
 
 ## 📄 License
 
-This project is for educational and training purposes only.  
-Use, share, or modify with credit – not for commercial distribution.
+This software is for educational purposes only.  
+Use, share, or modify freely with credit. Not for commercial use.
