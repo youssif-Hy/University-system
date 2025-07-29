@@ -1,23 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Runtime.Remoting.Messaging;
 namespace Project_Y.H.B_University.System
 {
     internal class Program
     {
-        // هيكل بيانات لتخزين معلومات الطلاب
-        private struct Data
-        {
-            public string Name;
-            public string ID;
-            public string Email;
-            public string Password;
-            public Double GPA;
-        }
+        // مسار ملف بيانات الطلاب
+        public static string path = "student_data.txt";
+       
         static void Main(string[] args)
         {
             //logein
@@ -29,7 +19,7 @@ namespace Project_Y.H.B_University.System
             Console.WriteLine(" __   __  __    _  ___   __   __  _______  ______    _______  ___   _______  __   __   \r\n|  | |  ||  |  | ||   | |  | |  ||       ||    _ |  |       ||   | |       ||  | |  |  \r\n|  | |  ||   |_| ||   | |  |_|  ||    ___||   | ||  |  _____||   | |_     _||  |_|  |  \r\n|  |_|  ||       ||   | |       ||   |___ |   |_||_ | |_____ |   |   |   |  |       |  \r\n|       ||  _    ||   | |       ||    ___||    __  ||_____  ||   |   |   |  |_     _|  \r\n|       || | |   ||   |  |     | |   |___ |   |  | | _____| ||   |   |   |    |   |    \r\n|_______||_|  |__||___|   |___|  |_______||___|  |_||_______||___|   |___|    |___|    \r\n");
             Console.Write(" _______  __   __  _______  _______  _______  __   __                                  \r\n|       ||  | |  ||       ||       ||       ||  |_|  |                                 \r\n|  _____||  |_|  ||  _____||_     _||    ___||       |                                 \r\n| |_____ |       || |_____   |   |  |   |___ |       |                                 \r\n|_____  ||_     _||_____  |  |   |  |    ___||       | Free Palestine                                \r\n _____| |  |   |   _____| |  |   |  |   |___ | ||_|| |");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.Write(" v.0.3");
+            Console.Write(" v.0.2");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write("                                 \r\n|_______|  |___|  |_______|  |___|  |_______||_|   |_|");
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -73,8 +63,7 @@ namespace Project_Y.H.B_University.System
             adminusername[1] = "thomas_EN";
             adminpassword[0] = "Youssef@123";
             adminpassword[1] = "Thomas@123";
-            Data[] student = new Data[0];
-            Data[] student2 = new Data[0];
+          
             Console.Clear();
             // عرض واجهة المستخدم الرئيسية بناءً على الخيار المحدد من قبل المستخدم
             switch (option)
@@ -82,28 +71,31 @@ namespace Project_Y.H.B_University.System
                 case 1:
                     //login
                     //تسجيل دخول الطلاب اذا كان هناك طلاب مسجلين مسبقًا
-                    if (student.Length != 0)
+                    if (File.Exists(path))
                     {
                         check = false;
                         level = 0;
                         semester = 0;
                         // استخدام حلقة for للسماح للمستخدم بمحاولة تسجيل الدخول حتى 3 مرات
+                        string[] lines = File.ReadAllLines(path);
                         for (int i = 0; i <= 3; i++)
                         {
                             // حلقة for للتحقق من صحة بيانات تسجيل الدخول
-                            for (int j = 0; j < student.Length; j++)
+                            foreach (string line in lines)
                             {
+                                
                                 // عرض رسالة لتسجيل الدخول
                                 Console.Write("Enter your ID: ");
                                 string id = Console.ReadLine();
                                 Console.Write("Enter your password: ");
                                 string password = Console.ReadLine();
                                 // التحقق من صحة بيانات تسجيل الدخول
-                                if (id == student[j].ID && password == student[j].Password)
+                                string[] studentData = line.Split(',');
+                                if (id == studentData[0] && password == studentData[1])
                                 {
                                     Console.Clear();
                                     Console.WriteLine("Login successful");
-                                    Console.WriteLine("\nWelcome " + student[j].Name);
+                                    Console.WriteLine("\nWelcome " + studentData[2]);
                                     check = true;
                                     break;
                                 }
@@ -114,6 +106,7 @@ namespace Project_Y.H.B_University.System
                                     Console.WriteLine("You have " + (2 - i) + " attempts left");
                                 }
                             }
+                            
                             // إذا تم تسجيل الدخول بنجاح، يتم كسر الحلقة
                             if (check)
                             {
@@ -163,8 +156,6 @@ namespace Project_Y.H.B_University.System
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadKey();
                                     Console.Clear();
-                           
-                           
                                 }
                                 else if (level == 2)
                                 {
@@ -264,42 +255,40 @@ namespace Project_Y.H.B_University.System
                 case 2:
                     //register
                     //تسجيل دخول الطلاب اذا لم يكن هناك طلاب مسجلين مسبقًا
-                    if (student.Length == 0 )
+                    if (!File.Exists(path))
                     {
-                        student = new Data[1];
                         Console.Write("Enter your name: ");
-                        student[0].Name = ValidateName(Console.ReadLine());
+                        string Name = ValidateName(Console.ReadLine());
                         Console.Write("Enter your ID: ");
-                        student[0].ID = Console.ReadLine();
+                        string ID = Console.ReadLine();
                         Console.Write("Enter your email: ");
-                        student[0].Email = ValidateEmail(Console.ReadLine());
+                        string Email = ValidateEmail(Console.ReadLine());
                         Console.Write("Enter your password: ");
-                        student[0].Password = ValidatePassword(Console.ReadLine());
+                        string Password = ValidatePassword(Console.ReadLine());
+                        double GPA = 0;
                         Console.WriteLine("Student registered successfully.");
+                        // إنشاء ملف جديد لتخزين بيانات الطلاب
+                        File.WriteAllText(path, $"{ID},{Password},{Name},{Email},{GPA}\n");
+
                     }
                     //تسجيل دخول الطلاب اذا كان هناك طلاب مسجلين مسبقًا
-                    else if (student.Length != 0)
+                    else 
                     {
-                        //استخدام نفس الطريقة لتكبير مصفوفة الطلاب وإضافة طالب جديد
-                        student2 = new Data[student.Length];
-                        Array.Copy(student, student2, student.Length);
-                        student = new Data[student.Length + 1];
-                        Array.Copy(student2, student, student2.Length);
-                        student2 = null;
+                      
                         // عرض رسالة لإدخال بيانات الطالب الجديد
-                        for (int i = student.Length-1; i < student.Length; i++)
-                        {
-                            Console.WriteLine("Enter data for student " + (i + 1));
-                            Console.Write("Enter your name: ");
-                            student[i].Name = ValidateName(Console.ReadLine());
-                            Console.Write("Enter your ID: ");
-                            student[i].ID = Console.ReadLine();
-                            Console.Write("Enter your email: ");
-                            student[i].Email = ValidateEmail(Console.ReadLine());
-                            Console.Write("Enter your password: ");
-                            student[i].Password = ValidatePassword(Console.ReadLine());
-                            Console.WriteLine("Student registered successfully.");
-                        }
+                        Console.WriteLine("Enter data for student ");
+                        Console.Write("Enter your name: ");
+                        string Name = ValidateName(Console.ReadLine());
+                        Console.Write("Enter your ID: ");
+                        string ID = Console.ReadLine();
+                        Console.Write("Enter your email: ");
+                        string Email = ValidateEmail(Console.ReadLine());
+                        Console.Write("Enter your password: ");
+                        string Password = ValidatePassword(Console.ReadLine());
+                        Console.WriteLine("Student registered successfully.");
+                        double GPA = 0; // تعيين المعدل التراكمي الافتراضي إلى 0
+                        // إضافة بيانات الطالب الجديد إلى الملف
+                        File.AppendAllText(path, $"{ID},{Password},{Name},{Email},{GPA}\n");
                     }
                     VBTOM = Switch1();
                     if (VBTOM == 1) goto case 1;
@@ -360,8 +349,10 @@ namespace Project_Y.H.B_University.System
                                 if (option2 == 1)
                                 {
                                     // عرض بيانات الطلاب
-                                    if (student.Length != 0)
+                                    if (File.Exists(path))
                                     {
+                                        // قراءة بيانات الطلاب من الملف
+                                        string[] student = File.ReadAllLines(path);
                                         Console.WriteLine("**********************************************************");
                                         Console.WriteLine("Welcome to the student data section");
                                         Console.WriteLine("Student Data:");
@@ -386,31 +377,32 @@ namespace Project_Y.H.B_University.System
                                     Console.WriteLine("**********************************************************");
                                     Console.Write("Enter the number of additional students: ");
                                     numStudents = ValidateInput(Console.ReadLine());
-                                    // طريقة لتكبير مصفوفة الطلاب وإضافة بيانات جديدة
-                                    student2 = new Data[student.Length];
-                                    // نسخ البيانات القديمة إلى المصفوفة الجديدة
-                                    Array.Copy(student, student2, student.Length);
-                                    // تكبير المصفوفة الأصلية 
-                                    student = new Data[student.Length + numStudents];
-                                    // نسخ البيانات من المصفوفة الجديدة إلى المصفوفة الأصلية
-                                    Array.Copy(student2, student, student2.Length);
-                                    student2 = null;
+                                    
                                     // إضافة بيانات الطلاب الجدد
-                                    for (int i = student.Length - numStudents; i < student.Length; i++)
+                                    
+                                    for (int i =  0; i < numStudents; i++)
                                     {
                                         // عرض رسالة لإدخال بيانات الطالب
                                         Console.WriteLine("Enter data for student " + (i + 1));
                                         Console.Write("Enter student name: ");
-                                        student[i].Name = ValidateName(Console.ReadLine());
+                                        string Name = ValidateName(Console.ReadLine());
                                         Console.Write("Enter student ID: ");
-                                        student[i].ID = Console.ReadLine();
+                                        string ID = Console.ReadLine();
                                         Console.Write("Enter student email: ");
-                                        student[i].Email = ValidateEmail(Console.ReadLine());
+                                        string Email = ValidateEmail(Console.ReadLine());
                                         Console.Write("Enter student password: ");
-                                        student[i].Password = ValidatePassword(Console.ReadLine());
+                                        string Password = ValidatePassword(Console.ReadLine());
                                         Console.Write("Enter student GPA: ");
-                                        student[i].GPA = ValidateGPA(double.Parse(Console.ReadLine()));
+                                        double GPA = ValidateGPA(double.Parse(Console.ReadLine()));
                                         Console.WriteLine("**********************************************************");
+                                        if (File.Exists(path)) 
+                                        {
+                                            File.AppendAllText(path, $"{ID},{Password},{Name},{Email},{GPA}\n");
+                                        }
+                                        else
+                                        {
+                                            File.WriteAllText(path, $"{ID},{Password},{Name},{Email},{GPA}\n");
+                                        }
                                     }
                                 }
                                 else if (option2 == 3)
@@ -418,16 +410,16 @@ namespace Project_Y.H.B_University.System
                                     // تعديل بيانات طالب
                                     Console.Clear();
                                     // التحقق من وجود بيانات للطلاب قبل محاولة تعديل أي طالب
-                                    if (student.Length != 0)
+                                    if (File.Exists(path))
                                     {
                                         // عرض بيانات الطلاب قبل التعديل
-                                        ShowDataForEditOrDelete(data: student);
+                                        int number = ShowDataForEditOrDelete();
                                         Console.Write("Enter the student number you want to edit: ");
                                         int studentNumber;
                                         while (true)
                                         {
                                             studentNumber = ValidateInput(Console.ReadLine());
-                                            if (studentNumber > 0 && studentNumber <= student.Length)
+                                            if (studentNumber > 0 && studentNumber <= number)
                                             {
                                                 break;
                                             }
@@ -436,8 +428,11 @@ namespace Project_Y.H.B_University.System
                                                 Console.Write("Invalid student number. Please enter a valid number: ");
                                             }
                                         }
+                                        // قراءة بيانات الطلاب من الملف
+                                        string[] student = File.ReadAllLines(path);
+                                        string[] studentData = student[studentNumber - 1].Split(',');
                                         Console.Clear();
-                                        Console.WriteLine($"**********************************************************\nStudent Number: {studentNumber}\nName:{student[studentNumber - 1].Name}\nID:{student[studentNumber - 1].ID}\nEmail:{student[studentNumber - 1].Email}\nPassword:{student[studentNumber - 1].Password}\n**********************************************************");
+                                        Console.WriteLine($"**********************************************************\nStudent Number: {studentNumber}\nName:{studentData[0]}\nID:{studentData[1]}\nEmail:{studentData[2]}\nPassword:{studentData[3]}\nGPA:{studentData[4]}\n**********************************************************");
                                         Console.WriteLine("What do you want to edit?");
                                         Console.WriteLine("1. Name");
                                         Console.WriteLine("2. ID");
@@ -459,28 +454,32 @@ namespace Project_Y.H.B_University.System
                                         if (editOption == 1)
                                         {
                                             Console.Write("Enter new name: ");
-                                            student[studentNumber - 1].Name = ValidateName(Console.ReadLine());
+                                            studentData[0] = ValidateName(Console.ReadLine());
                                         }
                                         else if (editOption == 2)
                                         {
                                             Console.Write("Enter new ID: ");
-                                            student[studentNumber - 1].ID = Console.ReadLine();
+                                            studentData[1] = Console.ReadLine();
                                         }
                                         else if (editOption == 3)
                                         {
                                             Console.Write("Enter new email: ");
-                                            student[studentNumber - 1].Email = ValidateEmail(Console.ReadLine());
+                                            studentData[2] = ValidateEmail(Console.ReadLine());
                                         }
                                         else if (editOption == 4)
                                         {
                                             Console.Write("Enter new password: ");
-                                            student[studentNumber - 1].Password = ValidatePassword(Console.ReadLine());
+                                            studentData[3] = ValidatePassword(Console.ReadLine());
                                         }
                                         else if (editOption == 5)
                                         {
                                             Console.Write("Enter new GPA: ");
-                                            student[studentNumber - 1].GPA = ValidateGPA(double.Parse(Console.ReadLine()));
+                                            studentData[4] =Convert.ToString(ValidateGPA(double.Parse(Console.ReadLine())));
                                         }
+                                        // تحديث بيانات الطالب في المصفوفة
+                                        student[studentNumber - 1] = string.Join(",", studentData);
+                                        // كتابة البيانات المعدلة مرة أخرى إلى الملف
+                                        File.WriteAllLines(path, student);
                                     }
                                     // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لتعديلها
                                     else
@@ -495,17 +494,17 @@ namespace Project_Y.H.B_University.System
                                 {
                                     Console.Clear();
                                     // التحقق من وجود بيانات للطلاب قبل محاولة حذف أي طالب
-                                    if (student.Length != 0)
+                                    if (File.Exists(path))
                                     {
                                         // عرض بيانات الطلاب قبل الحذف
-                                        ShowDataForEditOrDelete(data: student);
+                                       int number = ShowDataForEditOrDelete();
                                         Console.Write("Enter the student number you want to delete: ");
                                         // التحقق من صحة إدخال رقم الطالب
                                         int studentNumber;
                                         while (true)
                                         {
                                             studentNumber = ValidateInput(Console.ReadLine());
-                                            if (studentNumber > 0 && studentNumber <= student.Length)
+                                            if (studentNumber > 0 && studentNumber <= number)
                                             {
                                                 break;
                                             }
@@ -514,14 +513,13 @@ namespace Project_Y.H.B_University.System
                                                 Console.Write("Invalid student number. Please enter a valid number: ");
                                             }
                                         }
+                                        string[] student = File.ReadAllLines(path);
                                         // حذف بيانات الطالب المحدد من المصفوفة
-                                        for (int i = studentNumber - 1; i + 1 < student.Length; i++)
-                                        {
-                                            student[i] = student[i + 1];
-                                        }
+                                        student = student.Where((s, index) => index != studentNumber - 1).ToArray();
+                                        // كتابة البيانات المعدلة مرة أخرى إلى الملف
+                                        File.WriteAllLines(path, student);
                                         // تقليص حجم المصفوفة بعد حذف الطالب
-                                        Array.Resize(ref student, student.Length - 1);
-                                        ShowDataForEditOrDelete(data: student);
+                                        ShowDataForEditOrDelete();
                                     }
                                     // إذا لم يكن هناك بيانات للطلاب، يتم عرض رسالة تفيد بعدم وجود بيانات لحذفها
                                     else
@@ -536,7 +534,7 @@ namespace Project_Y.H.B_University.System
                                     // حذف جميع بيانات الطلاب
                                     Console.Clear();
                                     // التحقق من وجود بيانات للطلاب قبل محاولة حذفها
-                                    if (student.Length != 0)
+                                    if (File.Exists(path))
                                     {
                                         Console.WriteLine("Are you sure you want to delete all student data?");
                                         Console.WriteLine("1.YES");
@@ -555,7 +553,8 @@ namespace Project_Y.H.B_University.System
                                         // إذا كان المشرف يريد حذف جميع البيانات
                                         if (deleteOption == 1)
                                         {
-                                            Array.Resize(ref student, 0); // تقليص المصفوفة إلى صفر
+                                            // حذف ملف بيانات الطلاب
+                                            File.Delete(path);
                                             Console.WriteLine("All student data has been deleted successfully.");
                                         }
                                         // إذا كان المشرف لا يريد حذف جميع البيانات
@@ -637,8 +636,8 @@ namespace Project_Y.H.B_University.System
                     Console.WriteLine("Origin\n\nThis project was created by Youssef Harby Bayoumi\r\nIt is the final project for a training program in collaboration with the Enactus community.\n");
                     Console.WriteLine("Program Description\n\nThis system is designed to be used by both students and university administrators.\n\n•   * Administrators use the system to store and manage student data, which can be retrieved upon request.\n\n•   * Students use the program to register their information or log in to access useful resources such as book links or PDF files available within the system.\n\n");
                     Console.WriteLine("Future Goals\n\nThe developer hoped to make the system capable of saving data in a dedicated data file, but due to time constraints, this feature has not been implemented yet.\r\nTherefore, the program is still under development and not a complete version as of now.\n\n");
-                    Console.WriteLine("Update History\n\n   * Project development started on April 21, 2025\n\n   * Submitted on May 1, 2025\n\n   * First update Jun 7, 2025\n\n   * Second update jun 9, 2025");
-                    Console.WriteLine("   * Version 0.3\n\n");
+                    Console.WriteLine("Update History\n\n   * Project development started on April 21, 2025\n\n   * Submitted on May 1, 2025\n\n   * First update Jun 7, 2025");
+                    Console.WriteLine("   * Version 0.2\n\n");
                     Console.WriteLine("**********************************************************\n");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("Press any key to continue...");
@@ -775,20 +774,27 @@ namespace Project_Y.H.B_University.System
             return isValid;
         }
         // دالة لعرض بيانات الطلاب
-        static void ShowData(Data[] data)
+        static void ShowData(string[] data)
         {
-            foreach (Data data1 in data)
+            foreach (string line in data)
             {
-                Console.WriteLine($"**********************************************************\nName:{data1.Name}\nID:{data1.ID}\nEmail:{data1.Email}\nPassword:{data1.Password}\nGPA:{data1.GPA}\n**********************************************************");
+                string[] parts = line.Split(',');
+                Console.WriteLine($"**********************************************************\nName:{parts[0]}\nID:{parts[1]}\nEmail:{parts[2]}\nPassword:{parts[3]}\nGPA:{parts[4]}\n**********************************************************");
             }
         }
         // دالة لعرض بيانات الطلاب لتعديلها أو حذفها
-        static void ShowDataForEditOrDelete(Data[] data)
+        static int ShowDataForEditOrDelete( )
         {
-            for (int i = 0; i < data.Length; i++)
+            // قراءة بيانات الطلاب من الملف
+            string[] data = File.ReadAllLines(path);
+            int i = 0;
+            foreach (var student in data)
             {
-                Console.WriteLine($"**********************************************************\nStudent Number: {i + 1}\nName:{data[i].Name}\nID:{data[i].ID}\nEmail:{data[i].Email}\nPassword:{data[i].Password}\nGPA:{data[i].GPA}\n**********************************************************");
+                i++;
+                string[] parts = student.Split(',');
+                Console.WriteLine($"**********************************************************\nStudent Number: {i}\nName:{parts[0]}\nID:{parts[1]}\nEmail:{parts[2]}\nPassword:{parts[3]}\nGPA:{parts[4]}\\n**********************************************************");
             }
+            return i;
         }
         // دالة لتسجيل مشرف جديد
         static void RegisterForAdmin(string[] adminusername,string[] adminpassword)
